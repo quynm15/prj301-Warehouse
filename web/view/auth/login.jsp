@@ -16,27 +16,27 @@
         <!--===============================================================================================-->
         <link rel=”stylesheet” href=”https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css” />
         <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="view/auth/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
         <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="assets/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+        <link rel="stylesheet" type="text/css" href="view/auth/assets/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
         <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="assets/vendor/animate/animate.css">
+        <link rel="stylesheet" type="text/css" href="view/auth/assets/vendor/animate/animate.css">
         <!--===============================================================================================-->	
-        <link rel="stylesheet" type="text/css" href="assets/vendor/css-hamburgers/hamburgers.min.css">
+        <link rel="stylesheet" type="text/css" href="view/auth/assets/vendor/css-hamburgers/hamburgers.min.css">
         <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="assets/vendor/animsition/css/animsition.min.css">
+        <link rel="stylesheet" type="text/css" href="view/auth/assets/vendor/animsition/css/animsition.min.css">
         <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="assets/vendor/select2/select2.min.css">
+        <link rel="stylesheet" type="text/css" href="view/auth/assets/vendor/select2/select2.min.css">
         <!--===============================================================================================-->	
-        <link rel="stylesheet" type="text/css" href="assets/vendor/daterangepicker/daterangepicker.css">
+        <link rel="stylesheet" type="text/css" href="view/auth/assets/vendor/daterangepicker/daterangepicker.css">
         <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="assets/css/util.css">
-        <link rel="stylesheet" type="text/css" href="assets/css/style_login.css">
+        <link rel="stylesheet" type="text/css" href="view/auth/assets/css/util.css">
+        <link rel="stylesheet" type="text/css" href="view/auth/assets/css/style_login.css">
         <!--===============================================================================================-->
     </head>
     <body>
         <div class="limiter">
-            <div class="container-login100" style="background-image: url('assets/images/bg-01.jpg');">
+            <div class="container-login100" style="background-image: url('view/auth/assets/images/bg-01.jpg');">
                 <div class="wrap-login100 p-t-30 p-b-50">
                     <span class="login100-form-title p-b-21">Account Login</span><br/>
 
@@ -68,19 +68,19 @@
         <!--===============================================================================================-->
         <script src=”https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js”></script>
         <!--===============================================================================================-->
-        <script src="vendor/animsition/js/animsition.min.js"></script>
+        <script src="view/auth/assets/vendor/animsition/js/animsition.min.js"></script>
         <!--===============================================================================================-->
         <script src=”https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js”></script>
         <script src=”https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js”></script>
         <!--===============================================================================================-->
-        <script src="assets/vendor/select2/select2.min.js"></script>
+        <script src="view/auth/assets/vendor/select2/select2.min.js"></script>
         <!--===============================================================================================-->
-        <script src="assets/vendor/daterangepicker/moment.min.js"></script>
-        <script src="assets/vendor/daterangepicker/daterangepicker.js"></script>
+        <script src="view/auth/assets/vendor/daterangepicker/moment.min.js"></script>
+        <script src="view/auth/assets/vendor/daterangepicker/daterangepicker.js"></script>
         <!--===============================================================================================-->
-        <script src="assets/vendor/countdowntime/countdowntime.js"></script>
+        <script src="view/auth/assets/vendor/countdowntime/countdowntime.js"></script>
         <!--===============================================================================================-->
-        <script src="js/login.js"></script>
+        <script src="view/auth/js/login.js"></script>
 
     </body>
 </html>

@@ -8,6 +8,18 @@
         <servlet-name>ListAccountController</servlet-name>
         <servlet-class>controller.account.ListAccountController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccessDeniedController</servlet-name>
+        <servlet-class>controller.auth.AccessDeniedController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeController</servlet-name>
+        <servlet-class>controller.HomeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>controller.auth.LogoutController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -16,9 +28,21 @@
         <servlet-name>ListAccountController</servlet-name>
         <url-pattern>/account/list</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccessDeniedController</servlet-name>
+        <url-pattern>/access-denied</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeController</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
-            30
+            120
         </session-timeout>
     </session-config>
 </web-app>
