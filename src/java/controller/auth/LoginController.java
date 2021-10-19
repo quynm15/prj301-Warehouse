@@ -20,20 +20,6 @@ import model.Account;
  */
 public class LoginController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -46,6 +32,9 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        
         Cookie[] cookies = request.getCookies();
         Cookie user = null, pass = null;
         if (cookies != null) {
@@ -80,6 +69,7 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -92,7 +82,7 @@ public class LoginController extends HttpServlet {
             request.setAttribute("errorLogin", "Username or password is incorrect.");
             request.getRequestDispatcher("view/auth/login.jsp").forward(request, response);
         } else {
-            if (remember.equals("on")) {
+            if (remember != null && remember.equals("on")) {
                 Cookie user = new Cookie("username", username);
                 Cookie pass = new Cookie("password", password);
                 user.setMaxAge(24 * 60 * 60 * 7); //1 week

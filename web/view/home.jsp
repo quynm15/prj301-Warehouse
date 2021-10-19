@@ -8,15 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- CDN to reset CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-        <!-- CSS -->
-        <link rel="stylesheet" href="view/css/base.css" />
-        <link rel="stylesheet" href="view/css/main.css" />
-        <link rel="stylesheet" href="view/css/grid.css" />
+        <jsp:include page="template/head.jsp" flush="true" />
         <title>MQ Warehouse</title>
     </head>
     <body>
@@ -47,7 +39,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="content-home__banner col col-l-12">
-                                            <img src="view/images/banner_home.jpg" alt="banner home" class="content-home__banner-img" />
+                                            <img src="images/banner_home.jpg" alt="banner home" class="content-home__banner-img" />
                                         </div>
                                     </div>
                                 </div>

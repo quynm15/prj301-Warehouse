@@ -27,7 +27,9 @@
                     </c:if>
                     <c:if test="${not empty sessionScope.account}">
                         <li class="header__navbar-item navbar-user__container">
-                            <a class="header__navbar-link" href="#"> Hi, ${sessionScope.account.fullName} </a>
+                            <a class="header__navbar-link" href="#"> 
+                                Hi, ${empty sessionScope.account.fullName ? sessionScope.account.username : sessionScope.account.fullName} 
+                            </a>
                             <div class="navbar-user">
                                 <ul class="navbar-user__list">
                                     <li class="navbar-user__item">

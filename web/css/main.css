@@ -1,0 +1,284 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Ubuntu:wght@300;700&display=swap");
+
+/* declare variable */
+:root {
+    --primary-color: #4169e1;
+    --white-color: #fff;
+    --black-color: #000;
+    --text-color: #333;
+    --border-color: #dbdbdb;
+}
+/* common */
+* {
+    box-sizing: inherit;
+}
+html {
+    font-size: 100%; /* = 16px */
+    line-height: 1rem;
+    font-family: "Ubuntu", "Roboto", Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+input[type=text],
+input[type=date],
+input[type=password],
+input[type=email]{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    padding: 8px 5px;
+}
+input[type=text]:focus,
+input[type=date]:focus,
+input[type=password]:focus,
+input[type=email]:focus{
+    border-bottom: 1px solid var(--primary-color);
+    outline: none;
+}
+input[type=submit]{
+    background: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    padding: 8px 5px;
+    min-width: 80px;
+}
+
+
+.app {
+    overflow: hidden;
+}
+/* header */
+.header {
+    width: 100%;
+    height: 50px;
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 36px;
+    position: fixed;
+}
+.header__logo {
+    font-family: "Ubuntu", sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--black-color);
+}
+.header__logo span {
+    color: var(--white-color);
+}
+.header__navbar-list {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    font-family: "Ubuntu", sans-serif;
+}
+.header__navbar-item {
+    margin-right: 36px;
+}
+.header__navbar-link {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    color: var(--white-color);
+    text-decoration: none;
+}
+.navbar-user__container {
+    position: relative;
+    margin-right: 0;
+}
+.navbar-user__container:hover .navbar-user {
+    transform: scale(1);
+    opacity: 1;
+}
+.navbar-user {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--white-color);
+    min-width: 150px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    width: 160px;
+    z-index: 99;
+    box-shadow: 0 1px 2px #bbb;
+    transform-origin: top;
+    transform: scale(0);
+    opacity: 0;
+    transition: all ease-in 0.2s;
+}
+.navbar-user__list {
+    list-style: none;
+    padding: 0;
+}
+.navbar-user__link {
+    text-decoration: none;
+    color: var(--text-color);
+    display: block;
+    padding: 8px 12px;
+}
+.navbar-user__link:hover {
+    color: var(--primary-color);
+}
+/* Content */
+.content {
+    background: #d7e9f7;
+    padding-top: 50px;
+    font-family: "Ubuntu", sans-serif;
+    padding-right: 20px;
+}
+.content__nav {
+    background-color: #222d32;
+    color: var(--white-color);
+    height: 100%;
+}
+.content__nav-header {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+    padding-top: 20px;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+.content__nav-title {
+    background-color: #1a2226;
+    text-transform: uppercase;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    padding: 8px 8px 8px 20px;
+    margin: 0;
+}
+.content__nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.content__nav-item {
+    width: 100%;
+}
+.content__nav-link {
+    text-decoration: none;
+    color: var(--white-color);
+    width: 100%;
+    display: block;
+    font-size: 1rem;
+    line-height: 1.2rem;
+    padding: 5px 10px 0 40px;
+    margin-bottom: 10px;
+}
+/*Home*/
+.content-home {
+    padding-top: 20px;
+}
+.content-home__top-link {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 80px;
+    text-align: center;
+    background-color: white;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    line-height: 80px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+}
+.content-home__top-link--green {
+    background-color: rgb(0, 128, 0);
+    color: var(--white-color);
+}
+.content-home__top-link--red {
+    background-color: rgb(216, 22, 22);
+    color: var(--white-color);
+}
+.content-home__top-link--orange {
+    background-color: rgb(228, 160, 33);
+    color: var(--white-color);
+}
+.content-home__top-link--blue {
+    background-color: rgb(49, 111, 182);
+    color: var(--white-color);
+}
+.content-home__banner {
+    margin-top: 30px;
+}
+.content-home__banner-img {
+    width: 100%;
+    height: 500px;
+}
+
+/*List account*/
+.content__list-account-table{
+    width: 100%;
+}
+.content__list-account-row{
+    width: 100%;
+    border-bottom: 2px solid #ccc;
+}
+.content__list-account-header{
+    text-align: left;
+    font-weight: 700;
+    width: 20%;
+    padding: 10px 5px;
+    border-bottom: 2px solid var(--primary-color);
+}
+.content__list-account-col{
+    width: 20%;
+    padding: 10px 5px;
+    border-bottom: 2px solid #ccc;
+}
+.content__list-account-link{
+    text-decoration: none;
+    color: orangered;
+    display: block;
+    width: 100%;
+}
+
+/*Account detail*/
+.content__account-detail{
+    display: flex;
+}
+.content__account-detail-table{
+    max-width: 50%
+}
+.content__account-detail-title,
+.content__account-detail-data{
+    padding: 5px 0;
+}
+.content__account-detail-title{
+    font-weight: 700;
+    width: 150px;
+}
+.content__account-detail-data input{
+    min-width: 250px;
+
+}
+.content__account-detail-data input[type=checkbox]{
+    min-width: unset;
+}
+.content__account-detail-permission{
+    flex: 1;
+    margin-left: 50px;
+}
+.content__account-detail-permission p{
+    padding-top: 16px;
+    margin: 0;
+}
+.content__account-detail-permission label{
+    display: inline-block;
+    padding: 8px 5px
+}
+
+/* Footer */
+.footer {
+    border-top: 2px solid var(--primary-color);
+}
+.copyright {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-color);
+}
+.copyright a {
+    text-decoration: none;
+    color: var(--primary-color);
+}

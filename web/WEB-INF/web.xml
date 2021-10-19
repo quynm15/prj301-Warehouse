@@ -20,6 +20,14 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>controller.auth.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AccountDetailController</servlet-name>
+        <servlet-class>controller.account.AccountDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateAccountController</servlet-name>
+        <servlet-class>controller.account.UpdateAccountController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -40,9 +48,20 @@
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountDetailController</servlet-name>
+        <url-pattern>/account/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateAccountController</servlet-name>
+        <url-pattern>/account/update</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
-            120
+            300
         </session-timeout>
     </session-config>
+    <welcome-file-list>  
+        <welcome-file>home</welcome-file>
+    </welcome-file-list>
 </web-app>

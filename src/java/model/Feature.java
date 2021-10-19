@@ -12,13 +12,15 @@ package model;
 public class Feature {
     private int id;
     private String url;
+    private String name;
 
     public Feature() {
     }
 
-    public Feature(int id, String url) {
+    public Feature(int id, String url, String name) {
         this.id = id;
         this.url = url;
+        this.name = name;
     }
 
     public String getUrl() {
@@ -35,6 +37,14 @@ public class Feature {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
     
     

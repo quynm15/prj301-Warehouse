@@ -30,6 +30,9 @@ public class LogoutController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        
         request.getSession().setAttribute("account", null);
         //delete cookie while logout
         Cookie[] cookies = request.getCookies();

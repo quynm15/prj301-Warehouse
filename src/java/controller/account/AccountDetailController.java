@@ -3,20 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.auth;
+package controller.account;
 
+import controller.auth.BaseAuthPermission;
+import dal.AccountDBContext;
+import dal.FeatureDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
+import model.Feature;
 
 /**
  *
  * @author quynm
  */
-public class AccessDeniedController extends HttpServlet {
+public class AccountDetailController extends BaseAuthPermission {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,7 +35,20 @@ public class AccessDeniedController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("view/auth/access-denied.jsp").forward(request, response);
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        
+        String username = request.getParameter("username");
+        
+        AccountDBContext adb = new AccountDBContext();
+        Account account = adb.getAccount(username);
+        request.setAttribute("account", account);
+        
+        FeatureDBContext fdb = new FeatureDBContext();
+        ArrayList<Feature> features = fdb.getFeatures();
+        request.setAttribute("features", features);
+        
+        request.getRequestDispatcher("../view/account/detail-account.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -42,7 +61,7 @@ public class AccessDeniedController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -56,7 +75,7 @@ public class AccessDeniedController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

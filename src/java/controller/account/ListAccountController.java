@@ -8,10 +8,8 @@ package controller.account;
 import controller.auth.BaseAuthPermission;
 import dal.AccountDBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
@@ -33,11 +31,14 @@ public class ListAccountController extends BaseAuthPermission {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        
         AccountDBContext adb = new AccountDBContext();
         ArrayList<Account> accounts = adb.getAccounts();
         request.setAttribute("accounts", accounts);
         
-        request.getRequestDispatcher("../view/account/listAccount.jsp").forward(request, response);
+        request.getRequestDispatcher("../view/account/list-account.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
