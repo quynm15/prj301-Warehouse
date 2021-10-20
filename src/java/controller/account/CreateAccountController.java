@@ -9,19 +9,22 @@ import controller.auth.BaseAuthPermission;
 import dal.AccountDBContext;
 import dal.FeatureDBContext;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
+import model.Feature;
 
 /**
  *
  * @author quynm
  */
-public class UpdateAccountController extends BaseAuthPermission {
+public class CreateAccountController extends BaseAuthPermission {
 
-    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -32,18 +35,16 @@ public class UpdateAccountController extends BaseAuthPermission {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    //delete
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
-        String username = request.getParameter("username");
 
-        AccountDBContext adb = new AccountDBContext();
-        adb.deleteAccount(username);
+        FeatureDBContext fdb = new FeatureDBContext();
+        ArrayList<Feature> features = fdb.getFeatures();
+        request.setAttribute("features", features);
 
-        response.sendRedirect("list");
+        request.getRequestDispatcher("../view/account/create-account.jsp").forward(request, response);
     }
 
     /**
@@ -55,7 +56,6 @@ public class UpdateAccountController extends BaseAuthPermission {
      * @throws IOException if an I/O error occurs
      */
     @Override
-//    update
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
@@ -69,7 +69,7 @@ public class UpdateAccountController extends BaseAuthPermission {
         String email = request.getParameter("email");
         String status = request.getParameter("status") == null ? "" : request.getParameter("status");
         String[] pers = request.getParameterValues("permission");
-
+        
         Account account = new Account();
         account.setUsername(username);
         account.setFullName(fullname.isEmpty() ? null : fullname);
@@ -78,7 +78,7 @@ public class UpdateAccountController extends BaseAuthPermission {
         account.setPhone(phone.isEmpty() ? null : phone);
         account.setEmail(email.isEmpty() ? null : email);
         account.setIsActive(status.equals("active"));
-        
+
         FeatureDBContext fdb = new FeatureDBContext();
         if (pers != null) {
             for (String per : pers) {
@@ -87,11 +87,19 @@ public class UpdateAccountController extends BaseAuthPermission {
         }
 
         AccountDBContext adb = new AccountDBContext();
-        adb.updateAccount(account);
-        request.setAttribute("updateMsg", "Updated successfully.");
-        request.getRequestDispatcher("detail?username="+username).forward(request, response);
-
-        response.sendRedirect("detail?username="+username);
+        ArrayList<Account> accounts = adb.getAccounts();
+        //check duplicate
+        for (Account acc : accounts) {
+            //if duplicate, then back to jsp and show error
+            if (acc.getUsername().equals(username)) {
+                request.setAttribute("errorUsername", "Username has been already used.");
+                request.setAttribute("account", account);
+                processGet(request, response);
+            }
+        }
+        //if not, insert to DB
+        adb.insertAccount(account);
+        response.sendRedirect("list");
     }
 
     /**

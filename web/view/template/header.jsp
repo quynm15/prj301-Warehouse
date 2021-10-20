@@ -16,10 +16,10 @@
             <nav class="header__navbar">
                 <ul class="header__navbar-list">
                     <li class="header__navbar-item">
-                        <a class="header__navbar-link" href="#">ABOUT</a>
+                        <a class="header__navbar-link" href="home">HOME</a>
                     </li>
                     <li class="header__navbar-item">
-                        <a class="header__navbar-link" href="#">CONTACT</a>
+                        <a class="header__navbar-link" href="#">ABOUT</a>
                     </li>
                     <!-- User -->
                     <c:if test="${empty sessionScope.account}">
@@ -27,16 +27,16 @@
                     </c:if>
                     <c:if test="${not empty sessionScope.account}">
                         <li class="header__navbar-item navbar-user__container">
-                            <a class="header__navbar-link" href="#"> 
+                            <a class="header__navbar-link" href="myaccount"> 
                                 Hi, ${empty sessionScope.account.fullName ? sessionScope.account.username : sessionScope.account.fullName} 
                             </a>
                             <div class="navbar-user">
                                 <ul class="navbar-user__list">
                                     <li class="navbar-user__item">
-                                        <a class="navbar-user__link" href="#">Account</a>
+                                        <a class="navbar-user__link" href="myaccount">Account</a>
                                     </li>
                                     <li class="navbar-user__item">
-                                        <a class="navbar-user__link" href="#">Change password</a>
+                                        <a class="navbar-user__link" href="change-password">Change password</a>
                                     </li>
                                     <li class="navbar-user__item">
                                         <a class="navbar-user__link" href="logout">Log out</a>

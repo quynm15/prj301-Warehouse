@@ -13,13 +13,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <base href="${pageContext.servletContext.contextPath}/">
         <!--===============================================================================================-->	
-        <link rel="icon" type="image/png" href="assets/images/icons/favicon.ico"/>
+        <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
         <!--===============================================================================================-->
         <link rel=”stylesheet” href=”https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css” />
         <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="view/auth/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
         <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="view/auth/assets/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+        <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
         <!--===============================================================================================-->
         <link rel="stylesheet" type="text/css" href="view/auth/assets/vendor/animate/animate.css">
         <!--===============================================================================================-->	
@@ -31,13 +31,13 @@
         <!--===============================================================================================-->	
         <link rel="stylesheet" type="text/css" href="view/auth/assets/vendor/daterangepicker/daterangepicker.css">
         <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="view/auth/assets/css/util.css">
-        <link rel="stylesheet" type="text/css" href="view/auth/assets/css/style_login.css">
+        <link rel="stylesheet" type="text/css" href="css/util.css">
+        <link rel="stylesheet" type="text/css" href="css/style_login.css">
         <!--===============================================================================================-->
     </head>
     <body>
         <div class="limiter">
-            <div class="container-login100" style="background-image: url('view/auth/assets/images/bg-01.jpg');">
+            <div class="container-login100" style="background-image: url('images/login_background.jpg');">
                 <div class="wrap-login100 p-t-30 p-b-50">
                     <span class="login100-form-title p-b-21">Account Login</span><br/>
 
@@ -81,7 +81,7 @@
         <!--===============================================================================================-->
         <script src="view/auth/assets/vendor/countdowntime/countdowntime.js"></script>
         <!--===============================================================================================-->
-        <script src="view/auth/js/login.js"></script>
+        <script src="js/login.js"></script>
 
     </body>
 </html>

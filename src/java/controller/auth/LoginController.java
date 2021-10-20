@@ -34,27 +34,25 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
-        Cookie[] cookies = request.getCookies();
-        Cookie user = null, pass = null;
-        if (cookies != null) {
-            for (Cookie c : cookies) {
-                if (c.getName().equals("username")) {
-                    user = c;
-                }
-                if (c.getName().equals("password")) {
-                    pass = c;
-                }
-            }
-        }
-        if (user != null && pass != null) {
-            AccountDBContext adb = new AccountDBContext();
-            Account account = adb.getAccount(user.getValue(), pass.getValue());
-            request.getSession().setAttribute("account", account);
-            response.sendRedirect("home");
-        } else {
-            request.getRequestDispatcher("view/auth/login.jsp").forward(request, response);
-        }
+
+//        Cookie[] cookies = request.getCookies();
+//        Cookie user = null, pass = null;
+//        if (cookies != null) {
+//            for (Cookie c : cookies) {
+//                if (c.getName().equals("username")) {
+//                    user = c;
+//                }
+//            }
+//        }
+//        if (user != null && pass != null) {
+//            AccountDBContext adb = new AccountDBContext();
+//            Account account = adb.getAccount(user.getValue());
+//            request.getSession().setAttribute("account", account);
+//            response.sendRedirect("home");
+//        } else {
+//            request.getRequestDispatcher("view/auth/login.jsp").forward(request, response);
+//        }
+        request.getRequestDispatcher("view/auth/login.jsp").forward(request, response);
     }
 
     /**
@@ -84,11 +82,8 @@ public class LoginController extends HttpServlet {
         } else {
             if (remember != null && remember.equals("on")) {
                 Cookie user = new Cookie("username", username);
-                Cookie pass = new Cookie("password", password);
                 user.setMaxAge(24 * 60 * 60 * 7); //1 week
-                pass.setMaxAge(24 * 60 * 60 * 7); //1 week
                 response.addCookie(user);
-                response.addCookie(pass);
             }
             request.getSession().setAttribute("account", account);
             response.sendRedirect("home");

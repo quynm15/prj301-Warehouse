@@ -9,19 +9,22 @@ import controller.auth.BaseAuthPermission;
 import dal.AccountDBContext;
 import dal.FeatureDBContext;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
+import model.Feature;
 
 /**
  *
  * @author quynm
  */
-public class UpdateAccountController extends BaseAuthPermission {
+public class MyAccountController extends BaseAuthPermission {
 
-    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -32,18 +35,24 @@ public class UpdateAccountController extends BaseAuthPermission {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    //delete
     protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
-        String username = request.getParameter("username");
 
-        AccountDBContext adb = new AccountDBContext();
-        adb.deleteAccount(username);
+        Account account = (Account) request.getSession().getAttribute("account");
+        if (account != null) {
+            request.setAttribute("account", account);
+            
+            FeatureDBContext fdb = new FeatureDBContext();
+            ArrayList<Feature> features = fdb.getFeatures();
+            request.setAttribute("features", features);
+            
+            request.getRequestDispatcher("view/account/my-account.jsp").forward(request, response);
+        } else{
+            response.sendRedirect("login");
+        }
 
-        response.sendRedirect("list");
     }
 
     /**
@@ -55,7 +64,6 @@ public class UpdateAccountController extends BaseAuthPermission {
      * @throws IOException if an I/O error occurs
      */
     @Override
-//    update
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
@@ -89,9 +97,9 @@ public class UpdateAccountController extends BaseAuthPermission {
         AccountDBContext adb = new AccountDBContext();
         adb.updateAccount(account);
         request.setAttribute("updateMsg", "Updated successfully.");
-        request.getRequestDispatcher("detail?username="+username).forward(request, response);
-
-        response.sendRedirect("detail?username="+username);
+        //update new information in to session
+        request.getSession().setAttribute("account", adb.getAccount(username));
+        processGet(request, response);
     }
 
     /**

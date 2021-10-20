@@ -9,7 +9,7 @@
 <html>
     <head>
         <jsp:include page="../template/head.jsp" flush="true" />
-        <link rel="stylesheet" href="view/auth/assets/css/style_access_denied.css">
+        <link rel="stylesheet" href="css/style_access_denied.css">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <title>Access Denied</title>
     </head>

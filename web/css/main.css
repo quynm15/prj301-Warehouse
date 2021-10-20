@@ -35,12 +35,33 @@ input[type=email]:focus{
     border-bottom: 1px solid var(--primary-color);
     outline: none;
 }
-input[type=submit]{
+.button{
+    display: inline-block;
+    border: none;
+    border-radius: 2px;
+    padding: 0 5px;
+    min-width: 160px;
+    height: 40px;
+    line-height: 40px;
+    text-decoration: none;
+    margin: 5px 10px;
+    text-align: center;
+    cursor: pointer;
+}
+.button--primary{
     background: var(--primary-color);
     color: var(--white-color);
-    border: none;
-    padding: 8px 5px;
-    min-width: 80px;
+}
+.button--red{
+    background: red;
+    color: var(--white-color);
+}
+.button--green{
+    background: green;
+    color: var(--white-color);
+}
+.errorMsg{
+    color: red
 }
 
 

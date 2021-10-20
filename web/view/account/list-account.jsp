@@ -45,6 +45,14 @@
                                         <td class="content__list-account-col">${account.address}</td>
                                     </tr>
                                 </c:forEach>
+                                <tr class="content__list-account-row">
+                                    <td colspan="5" class="content__list-account-col">
+                                        <a class="content__list-account-link" href="account/create">
+                                            <span class="lnr lnr-file-add"></span>
+                                            Create new account
+                                        </a>
+                                    </td>
+                                </tr>
                             </table>
                         </div>
                     </div>

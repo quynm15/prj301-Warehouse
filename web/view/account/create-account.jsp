@@ -1,6 +1,6 @@
 <%-- 
-    Document   : detail-account
-    Created on : Oct 18, 2021, 8:13:16 PM
+    Document   : create-account
+    Created on : Oct 20, 2021, 1:19:25 PM
     Author     : quynm
 --%>
 
@@ -22,74 +22,70 @@
                             <jsp:include page="../template/nav.jsp" flush="true"/>
                         </div>
                         <div class="col l-10">
-                            <h2 class="content__title">ACCOUNT DETAIL</h2>
-                            <p class="errorMsg">${requestScope.updateMsg eq null ? "" : requestScope.updateMsg}</p>
+                            <h2 class="content__title">CREATE ACCOUNT</h2>
+                            <p class="errorMsg">${requestScope.errorMsg eq null ? "" : requestScope.errorMsg}</p>
                             <hr/>
-                            <form action="account/update" method="POST">
+                            <form action="account/create" method="POST">
                                 <div class="content__account-detail">
                                     <table class="content__account-detail-table">
                                         <tr class="content__account-detail-row">
                                             <td class="content__account-detail-title">Username: </td>
                                             <td class="content__account-detail-data">
-                                                <input type="text" name="username" readonly value="${requestScope.account.username}"/>
+                                                <input type="text" name="username" required
+                                                       value="${requestScope.account.username}"/>
+                                                <p class="errorMsg">
+                                                    ${requestScope.errorUsername eq null ? "" : requestScope.errorUsername}
+                                                </p>
                                             </td>
                                         </tr>
                                         <tr class="content__account-detail-row">
                                             <td class="content__account-detail-title">Full name: </td>
                                             <td class="content__account-detail-data">
-                                                <input type="text" name="fullname" value="${requestScope.account.fullName}"/>
+                                                <input type="text" name="fullname"
+                                                       value="${requestScope.account.fullName}"/>
                                             </td>
                                         </tr>
                                         <tr class="content__account-detail-row">
                                             <td class="content__account-detail-title">Date of birth: </td>
                                             <td class="content__account-detail-data">
-                                                <input type="date" name="dob" value="${requestScope.account.dob}"/>
+                                                <input type="date" name="dob"
+                                                       value="${requestScope.account.dob}"/>
                                             </td>
                                         </tr>
                                         <tr class="content__account-detail-row">
                                             <td class="content__account-detail-title">Address: </td>
                                             <td class="content__account-detail-data">
-                                                <input type="text" name="address" value="${requestScope.account.address}"/>
+                                                <input type="text" name="address"
+                                                       value="${requestScope.account.address}"/>
                                             </td>
                                         </tr>
                                         <tr class="content__account-detail-row">
                                             <td class="content__account-detail-title">Phone: </td>
                                             <td class="content__account-detail-data">
-                                                <input type="text" name="phone" value="${requestScope.account.phone}"/>
+                                                <input type="text" name="phone"
+                                                       value="${requestScope.account.phone}"/>
                                             </td>
                                         </tr>
                                         <tr class="content__account-detail-row">
                                             <td class="content__account-detail-title">Email: </td>
                                             <td class="content__account-detail-data">
-                                                <input type="text" name="email" value="${requestScope.account.email}"/>
+                                                <input type="text" name="email"
+                                                       value="${requestScope.account.email}"/>
                                             </td>
                                         </tr>
                                         <tr class="content__account-detail-row">
                                             <td class="content__account-detail-title">Status: </td>
                                             <td class="content__account-detail-data">
                                                 <input type="checkbox" name="status" id="status"
-                                                       ${requestScope.account.isActive?"checked = \"checked\"":""}
-                                                       ${requestScope.account.username eq "admin" ? "disabled":""} 
+                                                       ${requestScope.account.isActive?"checked = \"checked\"":""} 
                                                        value="active"/>
                                                 <label for="status">Active</label>
                                             </td>
                                         </tr>
                                         <tr class="content__account-detail-row">
                                             <td colspan="2">
-                                                <input class="button button--primary" type="submit" value="Update"/>
-                                                <a class="button button--green" 
-                                                   href="account/reset-pass?username=${requestScope.account.username}">
-                                                    Reset password
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="content__account-detail-row">
-                                            <td colspan="2">
-                                                <a class="button button--red" 
-                                                   href="account/update?username=${requestScope.account.username}"
-                                                   ${requestScope.account.username eq "admin" ? "style=\"display: none;\"":""}>
-                                                    Delete Account
-                                                </a>
+                                                <input class="button button--primary" type="submit" value="Create"/>
+                                                <input class="button button--green" type="reset" value="Clear"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -100,9 +96,8 @@
                                                    <c:forEach items="${requestScope.account.features}" var="af">
                                                        ${af.id eq feature.id ?"checked = \"checked\"":""}
                                                    </c:forEach>
-                                                   ${requestScope.account.username eq "admin" ? "disabled":""}
                                                    value="${feature.id}"/> 
-                                                   <label for="f${feature.id}"> ${feature.name} </label> <br/>
+                                            <label for="f${feature.id}"> ${feature.name} </label> <br/>
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -115,4 +110,3 @@
         </div>
     </body>
 </html>
-

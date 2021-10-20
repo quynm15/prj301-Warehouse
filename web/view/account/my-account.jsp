@@ -1,6 +1,6 @@
 <%-- 
-    Document   : detail-account
-    Created on : Oct 18, 2021, 8:13:16 PM
+    Document   : my-account
+    Created on : Oct 20, 2021, 9:30:25 PM
     Author     : quynm
 --%>
 
@@ -10,7 +10,7 @@
 <html lang="en">
     <head>
         <jsp:include page="../template/head.jsp" flush="true" />
-        <title>Account Management</title>
+        <title>My Account</title>
     </head>
     <body>
         <div class="app">
@@ -25,7 +25,7 @@
                             <h2 class="content__title">ACCOUNT DETAIL</h2>
                             <p class="errorMsg">${requestScope.updateMsg eq null ? "" : requestScope.updateMsg}</p>
                             <hr/>
-                            <form action="account/update" method="POST">
+                            <form action="myaccount" method="POST">
                                 <div class="content__account-detail">
                                     <table class="content__account-detail-table">
                                         <tr class="content__account-detail-row">
@@ -67,28 +67,16 @@
                                         <tr class="content__account-detail-row">
                                             <td class="content__account-detail-title">Status: </td>
                                             <td class="content__account-detail-data">
-                                                <input type="checkbox" name="status" id="status"
-                                                       ${requestScope.account.isActive?"checked = \"checked\"":""}
-                                                       ${requestScope.account.username eq "admin" ? "disabled":""} 
-                                                       value="active"/>
-                                                <label for="status">Active</label>
+                                                ${requestScope.account.isActive?"Active":"Inactive"}
+                                                <input type="hidden" name="status" 
+                                                       value="${requestScope.account.isActive?"active":""}"/>
                                             </td>
                                         </tr>
                                         <tr class="content__account-detail-row">
                                             <td colspan="2">
                                                 <input class="button button--primary" type="submit" value="Update"/>
-                                                <a class="button button--green" 
-                                                   href="account/reset-pass?username=${requestScope.account.username}">
-                                                    Reset password
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="content__account-detail-row">
-                                            <td colspan="2">
-                                                <a class="button button--red" 
-                                                   href="account/update?username=${requestScope.account.username}"
-                                                   ${requestScope.account.username eq "admin" ? "style=\"display: none;\"":""}>
-                                                    Delete Account
+                                                <a class="button button--green" href="change-password">
+                                                    Change password
                                                 </a>
                                             </td>
                                         </tr>
@@ -96,13 +84,17 @@
                                     <div class="content__account-detail-permission">
                                         <p class="content__account-detail-title">Permissions: </p>
                                         <c:forEach items="${requestScope.features}" var="feature">
-                                            <input type="checkbox" name="permission" id="f${feature.id}"
+                                            <input type="checkbox"
                                                    <c:forEach items="${requestScope.account.features}" var="af">
                                                        ${af.id eq feature.id ?"checked = \"checked\"":""}
                                                    </c:forEach>
-                                                   ${requestScope.account.username eq "admin" ? "disabled":""}
-                                                   value="${feature.id}"/> 
-                                                   <label for="f${feature.id}"> ${feature.name} </label> <br/>
+                                                   disabled value="${feature.id}"/>
+                                            <c:forEach items="${requestScope.account.features}" var="af">
+                                                <c:if test="${af.id eq feature.id}">
+                                                    <input type="hidden" name="permission" value="${feature.id}"/>
+                                                </c:if>
+                                            </c:forEach>
+                                            ${feature.name}<br/>
                                         </c:forEach>
                                     </div>
                                 </div>
@@ -115,4 +107,3 @@
         </div>
     </body>
 </html>
-

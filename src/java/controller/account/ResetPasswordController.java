@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.auth;
+package controller.account;
 
+import controller.auth.BaseAuthPermission;
+import dal.AccountDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author quynm
  */
-public class LogoutController extends HttpServlet {
+public class ResetPasswordController extends BaseAuthPermission {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,19 +34,13 @@ public class LogoutController extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        request.getSession().setAttribute("account", null);
-        //delete cookie while logout
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie c : cookies) {
-                if (c.getName().equals("username") || c.getName().equals("password")) {
-                    c.setValue("");
-                    c.setMaxAge(0);
-                    response.addCookie(c);
-                }
-            }
-        }
-        response.sendRedirect("login");
+        String username = request.getParameter("username");
+        AccountDBContext adb = new AccountDBContext();
+        adb.updatePassword(username, "123456");
+        request.setAttribute("updateMsg", "Password is set to default: 123456.");
+        request.getRequestDispatcher("detail?username="+username).forward(request, response);
+        
+        response.sendRedirect("detail?username="+username);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,7 +53,7 @@ public class LogoutController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -72,7 +67,7 @@ public class LogoutController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

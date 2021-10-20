@@ -48,10 +48,10 @@
             <p class="content__nav-title">Account management</p>
             <ul class="content__nav-list">
                 <li class="content__nav-item">
-                    <a href="#" class="content__nav-link">Create new account</a>
+                    <a href="account/create" class="content__nav-link">Create new account</a>
                 </li>
                 <li class="content__nav-item">
-                    <a href="#" class="content__nav-link">Account management</a>
+                    <a href="account/list" class="content__nav-link">Account management</a>
                 </li>
             </ul>
         </div>
