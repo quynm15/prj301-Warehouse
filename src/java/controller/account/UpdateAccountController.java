@@ -6,14 +6,14 @@
 package controller.account;
 
 import controller.auth.BaseAuthPermission;
-import dal.AccountDBContext;
-import dal.FeatureDBContext;
+import dal.account.AccountDBContext;
+import dal.account.FeatureDBContext;
 import java.io.IOException;
 import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Account;
+import model.account.Account;
 
 /**
  *

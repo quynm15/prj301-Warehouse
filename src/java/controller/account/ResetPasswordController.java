@@ -6,7 +6,7 @@
 package controller.account;
 
 import controller.auth.BaseAuthPermission;
-import dal.AccountDBContext;
+import dal.account.AccountDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;

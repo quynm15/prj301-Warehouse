@@ -13,7 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <base href="${pageContext.servletContext.contextPath}/">
         <!--===============================================================================================-->	
-        <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+        <link rel="icon" type="image/png" href="${pageContext.servletContext.contextPath}/images/icons/favicon.ico"/>
         <!--===============================================================================================-->
         <link rel=”stylesheet” href=”https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css” />
         <!--===============================================================================================-->

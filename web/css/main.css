@@ -48,6 +48,18 @@ input[type=email]:focus{
     text-align: center;
     cursor: pointer;
 }
+.button--small{
+    display: inline-block;
+    border: none;
+    border-radius: 2px;
+    padding: 0 5px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+}
+.button--transparent{
+    background-color: transparent;
+}
 .button--primary{
     background: var(--primary-color);
     color: var(--white-color);
@@ -59,6 +71,9 @@ input[type=email]:focus{
 .button--green{
     background: green;
     color: var(--white-color);
+}
+.button--disable{
+    cursor: default;
 }
 .errorMsg{
     color: red
@@ -254,6 +269,10 @@ input[type=email]:focus{
     display: block;
     width: 100%;
 }
+.content__list-account-link--disable{
+    color: #777;
+    cursor: default;
+}
 
 /*Account detail*/
 .content__account-detail{
@@ -288,6 +307,76 @@ input[type=email]:focus{
 .content__account-detail-permission label{
     display: inline-block;
     padding: 8px 5px
+}
+
+/*Inventory*/
+.content__tab-table{
+    width: 100%;
+}
+.content__tab-row{
+    width: 100%;
+}
+.content__tab-col{
+    border-bottom: 2px solid #aaa;
+    width: 33%;
+}
+.content__tab-col--active{
+    border-bottom-color: var(--primary-color);
+}
+.content__tab-link{
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    color: var(--text-color);
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 10px 0;
+    font-weight: 500;
+}
+.content__tab-col--active .content__tab-link{
+    font-weight: 600;
+}
+
+/*List category*/
+.content__list-category-table{
+    width: 100%;
+}
+.content__list-category-row{
+    width: 100%;
+    border-bottom: 2px solid #ccc;
+}
+.content__list-category-header{
+    text-align: left;
+    font-weight: 700;
+    padding: 10px 5px;
+    border-bottom: 2px solid var(--primary-color);
+}
+.content__list-category-col{
+    padding: 10px 5px;
+    border-bottom: 2px solid #ccc;
+}
+.content__list-category-header:nth-child(1),
+.content__list-category-col:nth-child(1){
+    width: 10%;
+}
+.content__list-category-header:nth-child(2),
+.content__list-category-col:nth-child(2){
+    width: 30%;
+}
+.content__list-category-header:nth-child(3),
+.content__list-category-col:nth-child(3){
+    width: 60%;
+}
+.content__list-category-link{
+    text-decoration: none;
+    color: orangered;
+    display: block;
+    width: 100%;
+    cursor: pointer;
+}
+.content__list-category-link--disable{
+    color: #777;
+    cursor: default;
 }
 
 /* Footer */
