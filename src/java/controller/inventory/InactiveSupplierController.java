@@ -5,20 +5,19 @@
  */
 package controller.inventory;
 
-import dal.inventory.CategoryDBContext;
+import dal.inventory.SupplierDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.inventory.Category;
 
 /**
  *
  * @author quynm
  */
-public class CreateCategoryController extends HttpServlet {
+public class InactiveSupplierController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,13 +33,10 @@ public class CreateCategoryController extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        String name = request.getParameter("insertName").isEmpty()?null:request.getParameter("insertName");
-        String desc = request.getParameter("insertDesc").isEmpty()?null:request.getParameter("insertDesc");
-        String status = request.getParameter("insertStatus") == null ? "" : request.getParameter("insertStatus");
+        String id = request.getParameter("id");
         
-        Category cat = new Category(0, name, desc, status.equals("on"));
-        CategoryDBContext cdb = new CategoryDBContext();
-        cdb.insertCategory(cat);
+        SupplierDBContext sdb = new SupplierDBContext();
+        sdb.inactiveSupplier(Integer.parseInt(id));
         
         response.sendRedirect("list");
     }

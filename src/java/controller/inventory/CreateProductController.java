@@ -6,44 +6,23 @@
 package controller.inventory;
 
 import dal.inventory.CategoryDBContext;
+import dal.inventory.ProductDBContext;
+import dal.inventory.SupplierDBContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.inventory.Category;
+import model.inventory.Product;
+import model.inventory.Supplier;
 
 /**
  *
  * @author quynm
  */
-public class CreateCategoryController extends HttpServlet {
+public class CreateProductController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html; charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        
-        String name = request.getParameter("insertName").isEmpty()?null:request.getParameter("insertName");
-        String desc = request.getParameter("insertDesc").isEmpty()?null:request.getParameter("insertDesc");
-        String status = request.getParameter("insertStatus") == null ? "" : request.getParameter("insertStatus");
-        
-        Category cat = new Category(0, name, desc, status.equals("on"));
-        CategoryDBContext cdb = new CategoryDBContext();
-        cdb.insertCategory(cat);
-        
-        response.sendRedirect("list");
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -57,7 +36,6 @@ public class CreateCategoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**
@@ -71,7 +49,31 @@ public class CreateCategoryController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
+        String id = request.getParameter("id").isEmpty() ? null : request.getParameter("id");
+        String name = request.getParameter("name").isEmpty() ? null : request.getParameter("name");
+        String categoryid = request.getParameter("categoryid").isEmpty() ? null : request.getParameter("categoryid");
+        String supplierid = request.getParameter("supplierid").isEmpty() ? null : request.getParameter("supplierid");
+        String unit = request.getParameter("unit").isEmpty() ? null : request.getParameter("unit");
+        String unitPrice = request.getParameter("unitPrice").isEmpty() ? "0" : request.getParameter("unitPrice");
+        String comment = request.getParameter("comment").isEmpty() ? null : request.getParameter("comment");
+        String status = request.getParameter("status") == null ? "" : request.getParameter("status");
+
+        CategoryDBContext cdb = new CategoryDBContext();
+        Category category = cdb.getCategory(Integer.parseInt(categoryid));
+
+        SupplierDBContext sdb = new SupplierDBContext();
+        Supplier supplier = sdb.getSupplier(Integer.parseInt(supplierid));
+
+        Product product = new Product(id, name, category, supplier, unit, 0,
+                Double.parseDouble(unitPrice), comment, status.equals("on"));
+        
+        ProductDBContext pdb = new ProductDBContext();
+        pdb.insertProduct(product);
+
+        response.sendRedirect("list");
     }
 
     /**

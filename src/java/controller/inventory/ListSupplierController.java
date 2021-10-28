@@ -5,20 +5,21 @@
  */
 package controller.inventory;
 
-import dal.inventory.CategoryDBContext;
+import dal.inventory.SupplierDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.inventory.Category;
+import model.inventory.Supplier;
 
 /**
  *
  * @author quynm
  */
-public class CreateCategoryController extends HttpServlet {
+public class ListSupplierController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,18 +32,14 @@ public class CreateCategoryController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html; charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        String name = request.getParameter("insertName").isEmpty()?null:request.getParameter("insertName");
-        String desc = request.getParameter("insertDesc").isEmpty()?null:request.getParameter("insertDesc");
-        String status = request.getParameter("insertStatus") == null ? "" : request.getParameter("insertStatus");
+        SupplierDBContext sdb = new SupplierDBContext();
+        ArrayList<Supplier> suppliers = sdb.getSuppliers();
+        request.setAttribute("suppliers", suppliers);
         
-        Category cat = new Category(0, name, desc, status.equals("on"));
-        CategoryDBContext cdb = new CategoryDBContext();
-        cdb.insertCategory(cat);
-        
-        response.sendRedirect("list");
+        request.getRequestDispatcher("../view/inventory/list-supplier.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

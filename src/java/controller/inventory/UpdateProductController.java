@@ -6,6 +6,8 @@
 package controller.inventory;
 
 import dal.inventory.CategoryDBContext;
+import dal.inventory.ProductDBContext;
+import dal.inventory.SupplierDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,12 +15,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.inventory.Category;
+import model.inventory.Product;
+import model.inventory.Supplier;
 
 /**
  *
  * @author quynm
  */
-public class UpdateCategoryController extends HttpServlet {
+public class UpdateProductController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -38,8 +42,8 @@ public class UpdateCategoryController extends HttpServlet {
         
         String id = request.getParameter("id");
         
-        CategoryDBContext cdb = new CategoryDBContext();
-        cdb.deleteCategory(Integer.parseInt(id));
+        ProductDBContext pdb = new ProductDBContext();
+        pdb.deleteProduct(id);
         
         response.sendRedirect("list");
     }
@@ -59,14 +63,27 @@ public class UpdateCategoryController extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        String id = request.getParameter("updateID");
-        String name = request.getParameter("updateName").isEmpty()?null:request.getParameter("updateName");
-        String desc = request.getParameter("updateDesc").isEmpty()?null:request.getParameter("updateDesc");
-        String status = request.getParameter("updateStatus") == null ? "" : request.getParameter("updateStatus");
-        
-        Category cat = new Category(Integer.parseInt(id), name, desc, status.equals("on"));
+        String id = request.getParameter("id").isEmpty() ? null : request.getParameter("id");
+        String name = request.getParameter("name").isEmpty() ? null : request.getParameter("name");
+        String categoryid = request.getParameter("categoryid");
+        String supplierid = request.getParameter("supplierid");
+        String unit = request.getParameter("unit").isEmpty() ? null : request.getParameter("unit");
+        String unitPrice = request.getParameter("unitPrice").isEmpty() ? "0" : request.getParameter("unitPrice");
+        String quantity = request.getParameter("quantity").isEmpty() ? "0" : request.getParameter("quantity");
+        String comment = request.getParameter("comment").isEmpty() ? null : request.getParameter("comment");
+        String status = request.getParameter("status") == null ? "" : request.getParameter("status");
+
         CategoryDBContext cdb = new CategoryDBContext();
-        cdb.updateCategory(cat);
+        Category category = cdb.getCategory(Integer.parseInt(categoryid));
+
+        SupplierDBContext sdb = new SupplierDBContext();
+        Supplier supplier = sdb.getSupplier(Integer.parseInt(supplierid));
+
+        Product product = new Product(id, name, category, supplier, unit, Double.parseDouble(quantity),
+                Double.parseDouble(unitPrice), comment, status.equals("on"));
+        
+        ProductDBContext pdb = new ProductDBContext();
+        pdb.updateProduct(product);
         
         response.sendRedirect("list");
     }

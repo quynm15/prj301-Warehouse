@@ -10,7 +10,7 @@ package model.inventory;
  * @author quynm
  */
 public class Product {
-    private int id;
+    private String id;
     private String name;
     private Category category;
     private Supplier supplier;
@@ -19,11 +19,12 @@ public class Product {
     private double unitPrice;
     private String comment;
     private boolean active;
+    private boolean used;
 
     public Product() {
     }
 
-    public Product(int id, String name, Category category, Supplier supplier, String unit, double quantity, double unitPrice, String comment, boolean active) {
+    public Product(String id, String name, Category category, Supplier supplier, String unit, double quantity, double unitPrice, String comment, boolean active) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -43,11 +44,11 @@ public class Product {
         this.active = active;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -105,6 +106,14 @@ public class Product {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public boolean isUsed() {
+        return used;
+    }
+
+    public void setUsed(boolean used) {
+        this.used = used;
     }
     
     

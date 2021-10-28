@@ -5,20 +5,20 @@
  */
 package controller.inventory;
 
-import dal.inventory.CategoryDBContext;
+import dal.inventory.SupplierDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.inventory.Category;
+import model.inventory.Supplier;
 
 /**
  *
  * @author quynm
  */
-public class CreateCategoryController extends HttpServlet {
+public class AddSupplierController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,13 +34,20 @@ public class CreateCategoryController extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         
-        String name = request.getParameter("insertName").isEmpty()?null:request.getParameter("insertName");
-        String desc = request.getParameter("insertDesc").isEmpty()?null:request.getParameter("insertDesc");
-        String status = request.getParameter("insertStatus") == null ? "" : request.getParameter("insertStatus");
+        String companyName = request.getParameter("companyName").isEmpty()?null:request.getParameter("companyName");
+        String contactName = request.getParameter("contactName").isEmpty()?null:request.getParameter("contactName");
+        String phone = request.getParameter("phone").isEmpty()?null:request.getParameter("phone");
+        String email = request.getParameter("email").isEmpty()?null:request.getParameter("email");
+        String address = request.getParameter("address").isEmpty()?null:request.getParameter("address");
+        String district = request.getParameter("district").isEmpty()?null:request.getParameter("district");
+        String province = request.getParameter("province").isEmpty()?null:request.getParameter("province");
+        String comment = request.getParameter("comment").isEmpty()?null:request.getParameter("comment");
+        String status = request.getParameter("status") == null ? "" : request.getParameter("status");
         
-        Category cat = new Category(0, name, desc, status.equals("on"));
-        CategoryDBContext cdb = new CategoryDBContext();
-        cdb.insertCategory(cat);
+        Supplier sup = new Supplier(0, companyName, contactName, phone, email, address, 
+                province, district, status.equals("on"), comment);
+        SupplierDBContext sdb = new SupplierDBContext();
+        sdb.inserSupplier(sup);
         
         response.sendRedirect("list");
     }

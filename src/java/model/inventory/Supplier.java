@@ -17,14 +17,15 @@ public class Supplier {
     private String email;
     private String address;
     private String province;
-    private String distric;
+    private String district;
     private String comment;
     private boolean active;
+    private boolean used;
 
     public Supplier() {
     }
 
-    public Supplier(int id, String companyName, String contactName, String phone, String email, String address, String province, String distric, String comment, boolean active) {
+    public Supplier(int id, String companyName, String contactName, String phone, String email, String address, String province, String district, boolean active, String comment) {
         this.id = id;
         this.companyName = companyName;
         this.contactName = contactName;
@@ -32,7 +33,7 @@ public class Supplier {
         this.email = email;
         this.address = address;
         this.province = province;
-        this.distric = distric;
+        this.district = district;
         this.comment = comment;
         this.active = active;
     }
@@ -101,12 +102,12 @@ public class Supplier {
         this.province = province;
     }
 
-    public String getDistric() {
-        return distric;
+    public String getDistrict() {
+        return district;
     }
 
-    public void setDistric(String distric) {
-        this.distric = distric;
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     public String getComment() {
@@ -115,6 +116,14 @@ public class Supplier {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public boolean isUsed() {
+        return used;
+    }
+
+    public void setUsed(boolean used) {
+        this.used = used;
     }
     
     

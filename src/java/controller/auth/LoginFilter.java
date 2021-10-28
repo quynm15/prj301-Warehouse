@@ -64,20 +64,23 @@ public class LoginFilter implements Filter {
 	}
          */
         HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
         if (req.getSession().getAttribute("account") == null) {
             Cookie[] cookies = req.getCookies();
-            Cookie user = null, pass = null;
+            Cookie user = null;
             if (cookies != null) {
                 for (Cookie c : cookies) {
                     if (c.getName().equals("username")) {
                         user = c;
                     }
                 }
-            }
-            if (user != null && pass != null) {
-                AccountDBContext adb = new AccountDBContext();
-                Account account = adb.getAccount(user.getValue());
-                req.getSession().setAttribute("account", account);
+                if (user != null) {
+                    AccountDBContext adb = new AccountDBContext();
+                    Account account = adb.getAccount(user.getValue());
+                    req.getSession().setAttribute("account", account);
+                } else {
+                    res.sendRedirect(req.getContextPath()+"/login");
+                }
             }
         }
 

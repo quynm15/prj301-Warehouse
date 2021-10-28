@@ -254,14 +254,14 @@ and open the template in the editor.
 }
 .table {
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     color: #212529;
 }
 .table th,
 .table td {
-    padding: 0.75rem;
+    padding: 0.25rem;
     vertical-align: top;
-    border-top: 1px solid #dee2e6;
+    line-height: 40px;
 }
 
 .table thead th {

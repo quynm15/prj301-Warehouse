@@ -5,20 +5,20 @@
  */
 package controller.inventory;
 
-import dal.inventory.CategoryDBContext;
+import dal.inventory.SupplierDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.inventory.Category;
+import model.inventory.Supplier;
 
 /**
  *
  * @author quynm
  */
-public class UpdateCategoryController extends HttpServlet {
+public class UpdateSupplierController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -38,8 +38,8 @@ public class UpdateCategoryController extends HttpServlet {
         
         String id = request.getParameter("id");
         
-        CategoryDBContext cdb = new CategoryDBContext();
-        cdb.deleteCategory(Integer.parseInt(id));
+        SupplierDBContext sdb = new SupplierDBContext();
+        sdb.deleteSupplier(Integer.parseInt(id));
         
         response.sendRedirect("list");
     }
@@ -58,17 +58,25 @@ public class UpdateCategoryController extends HttpServlet {
         //update
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
-        String id = request.getParameter("updateID");
-        String name = request.getParameter("updateName").isEmpty()?null:request.getParameter("updateName");
-        String desc = request.getParameter("updateDesc").isEmpty()?null:request.getParameter("updateDesc");
-        String status = request.getParameter("updateStatus") == null ? "" : request.getParameter("updateStatus");
-        
-        Category cat = new Category(Integer.parseInt(id), name, desc, status.equals("on"));
-        CategoryDBContext cdb = new CategoryDBContext();
-        cdb.updateCategory(cat);
-        
+
+        String id = request.getParameter("id");
+        String companyName = request.getParameter("companyName").isEmpty() ? null : request.getParameter("companyName");
+        String contactName = request.getParameter("contactName").isEmpty() ? null : request.getParameter("contactName");
+        String phone = request.getParameter("phone").isEmpty() ? null : request.getParameter("phone");
+        String email = request.getParameter("email").isEmpty() ? null : request.getParameter("email");
+        String address = request.getParameter("address").isEmpty() ? null : request.getParameter("address");
+        String district = request.getParameter("district").isEmpty() ? null : request.getParameter("district");
+        String province = request.getParameter("province").isEmpty() ? null : request.getParameter("province");
+        String comment = request.getParameter("comment").isEmpty() ? null : request.getParameter("comment");
+        String status = request.getParameter("status") == null ? "" : request.getParameter("status");
+
+        Supplier sup = new Supplier(Integer.parseInt(id), companyName, contactName, phone, email, address,
+                province, district, status.equals("on"), comment);
+        SupplierDBContext sdb = new SupplierDBContext();
+        sdb.updateSupplier(sup);
+
         response.sendRedirect("list");
+
     }
 
     /**
