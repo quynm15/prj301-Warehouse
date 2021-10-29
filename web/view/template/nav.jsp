@@ -15,30 +15,30 @@
             <p class="content__nav-title">Inventory</p>
             <ul class="content__nav-list">
                 <li class="content__nav-item">
-                    <a href="#" class="content__nav-link">View Inventory</a>
+                    <a href="product/list" class="content__nav-link">View Inventory</a>
                 </li>
                 <li class="content__nav-item">
-                    <a href="#" class="content__nav-link">View Categories</a>
+                    <a href="category/list" class="content__nav-link">View Categories</a>
                 </li>
                 <li class="content__nav-item">
-                    <a href="#" class="content__nav-link">View Suppliers</a>
+                    <a href="supplier/list" class="content__nav-link">View Suppliers</a>
                 </li>
             </ul>
 
-            <p class="content__nav-title">Export - Import</p>
+            <p class="content__nav-title">Goods Receipt - Delivery</p>
             <ul class="content__nav-list">
                 <li class="content__nav-item">
-                    <a href="#" class="content__nav-link">Export</a>
+                    <a href="#" class="content__nav-link">Receipt</a>
                 </li>
                 <li class="content__nav-item">
-                    <a href="#" class="content__nav-link">Import</a>
+                    <a href="#" class="content__nav-link">Delivery</a>
                 </li>
             </ul>
 
             <p class="content__nav-title">Report</p>
             <ul class="content__nav-list">
                 <li class="content__nav-item">
-                    <a href="#" class="content__nav-link">Export - Import - Stock Report</a>
+                    <a href="#" class="content__nav-link">Input - Output - Inventory Report</a>
                 </li>
                 <li class="content__nav-item">
                     <a href="#" class="content__nav-link">Out of date Report</a>

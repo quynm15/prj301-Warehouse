@@ -133,7 +133,7 @@
                                 <tbody>
                                     <tr>
                                         <td>Company Name: </td>
-                                        <td><input type="text" name="companyName"/></td>
+                                        <td><input type="text" name="companyName" required/></td>
                                     </tr>
                                     <tr>
                                         <td>Contact Name: </td>
@@ -210,7 +210,7 @@
                                     </tr>
                                     <tr>
                                         <td>Company Name: </td>
-                                        <td><input type="text" name="companyName" id="supCompanyName"/></td>
+                                        <td><input type="text" name="companyName" id="supCompanyName" required/></td>
                                     </tr>
                                     <tr>
                                         <td>Contact Name: </td>

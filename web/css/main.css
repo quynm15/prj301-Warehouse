@@ -88,6 +88,27 @@ select:focus{
     color: red
 }
 
+.pagger{
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+.pagger__link{
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 1rem;
+    line-height: 1.5;
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+    text-align: center;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.pagger__link--active{
+    background: var(--primary-color);
+    color: var(--white-color);
+}
 
 .app {
     overflow: hidden;

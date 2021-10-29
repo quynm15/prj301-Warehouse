@@ -38,25 +38,37 @@ public class ListProductController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
+        ProductDBContext pdb = new ProductDBContext();
+
         String categoryid = request.getParameter("categoryid") == null ? "0" : request.getParameter("categoryid");
         String supplierid = request.getParameter("supplierid") == null ? "0" : request.getParameter("supplierid");
-        
-        ProductDBContext pdb = new ProductDBContext();
-        ArrayList<Product> products = pdb.getProducts(Integer.parseInt(categoryid), Integer.parseInt(supplierid));
+
+        String page = request.getParameter("page");
+        if (page == null || page.isEmpty()) {
+            page = "1";
+        }
+        int pageIndex = Integer.parseInt(page);
+        int pageSize = 20;
+        int totalRecords = pdb.countProducts(Integer.parseInt(categoryid), Integer.parseInt(supplierid));
+        int totalPages = totalRecords % pageSize == 0 ? totalRecords / pageSize : (totalRecords / pageSize) + 1;
+        request.setAttribute("pageIndex", pageIndex);
+        request.setAttribute("totalPages", totalPages);
+
+        ArrayList<Product> products = pdb.getProducts(Integer.parseInt(categoryid), Integer.parseInt(supplierid),
+                 pageIndex, pageSize);
         request.setAttribute("products", products);
-        
+
         CategoryDBContext cdb = new CategoryDBContext();
         ArrayList<Category> categories = cdb.getCategories();
         request.setAttribute("categories", categories);
-        
+
         SupplierDBContext sdb = new SupplierDBContext();
         ArrayList<Supplier> suppliers = sdb.getSuppliers();
         request.setAttribute("suppliers", suppliers);
-        
+
         request.setAttribute("selectedCategoryid", categoryid);
         request.setAttribute("selectedSupplierid", supplierid);
-        
+
         request.getRequestDispatcher("../view/inventory/list-product.jsp").forward(request, response);
     }
 

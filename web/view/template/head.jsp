@@ -18,8 +18,6 @@
 <!-- CSS -->
 <link rel="stylesheet" href="css/main.css" />
 <link rel="stylesheet" href="css/grid.css" />
-<!--JS-->
-<script src="${pageContext.servletContext.contextPath}/js/main.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link href="css/style_modal.css" rel="stylesheet" type="text/css"/>
@@ -27,3 +25,6 @@
 <script src="${pageContext.servletContext.contextPath}/js/bootstrap.js" type="text/javascript"></script>
 <script src="${pageContext.servletContext.contextPath}/js/modal.js" type="text/javascript"></script>
 <link href="${pageContext.servletContext.contextPath}/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+
+<!--JS-->
+<script src="${pageContext.servletContext.contextPath}/js/main.js" type="text/javascript"></script>

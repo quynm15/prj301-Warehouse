@@ -22,9 +22,21 @@ import model.inventory.Supplier;
  */
 public class ProductDBContext extends DBContext {
 
-    public ArrayList<Product> getProducts(int cateID, int supID) {
+    public ArrayList<Product> getProducts(int cateID, int supID, int pageIndex, int pageSize) {
         ArrayList<Product> products = new ArrayList<>();
         try {
+            String table_rowNum = "SELECT ROW_NUMBER() OVER (ORDER BY [ProductID] ASC) as rownum, * \n"
+                    + "         FROM [Products] WHERE 1=1 ";
+            ArrayList<Integer> params = new ArrayList<>();
+            if (cateID != 0) {
+                table_rowNum += " AND [CategoryID] = ? ";
+                params.add(cateID);
+            }
+            if (supID != 0) {
+                table_rowNum += " AND [SupplierID] = ? ";
+                params.add(supID);
+            }
+
             String sql = "SELECT [ProductID]\n"
                     + "      ,[ProductName]\n"
                     + "      ,[CategoryID]\n"
@@ -35,25 +47,19 @@ public class ProductDBContext extends DBContext {
                     + "      ,[isActive]\n"
                     + "      ,[Comment]\n"
                     + "	  ,(SELECT COUNT (*) FROM [ReceiptDetail] WHERE [ProductID] = p.[ProductID]) as totalReceipt\n"
-                    + "  FROM [Products] as p "
-                    + "  WHERE 1 = 1 ";
-            
-            ArrayList<Integer> params = new ArrayList<>();
-            if (cateID != 0) {
-                sql += " AND [CategoryID] = ? ";
-                params.add(cateID);
-            }
-            if (supID != 0) {
-                sql += " AND [SupplierID] = ? ";
-                params.add(supID);
-            }
-            
+                    + "  FROM "
+                    + "  ( " + table_rowNum + " ) as p "
+                    + "  WHERE rownum >= (? - 1)*? + 1 AND rownum <= ? * ? ";
+
             PreparedStatement stm = connection.prepareStatement(sql);
-            
             for (int i = 0; i < params.size(); i++) {
-                stm.setInt(i+1, params.get(i));
+                stm.setInt(i + 1, params.get(i));
             }
-            
+            stm.setInt(params.size() + 1, pageIndex);
+            stm.setInt(params.size() + 2, pageSize);
+            stm.setInt(params.size() + 3, pageIndex);
+            stm.setInt(params.size() + 4, pageSize);
+
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 CategoryDBContext cdb = new CategoryDBContext();
@@ -189,5 +195,36 @@ public class ProductDBContext extends DBContext {
         } catch (SQLException ex) {
             Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public int countProducts(int cateID, int supID) {
+        try {
+            String sql = "SELECT COUNT(*) as total \n"
+                    + "  FROM [Products] "
+                    + "  WHERE 1=1 ";
+            ArrayList<Integer> params = new ArrayList<>();
+            if (cateID != 0) {
+                sql += " AND [CategoryID] = ? ";
+                params.add(cateID);
+            }
+            if (supID != 0) {
+                sql += " AND [SupplierID] = ? ";
+                params.add(supID);
+            }
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+
+            for (int i = 0; i < params.size(); i++) {
+                stm.setInt(i + 1, params.get(i));
+            }
+
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 }

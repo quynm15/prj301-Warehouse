@@ -123,7 +123,7 @@
                                 <tbody>
                                     <tr>
                                         <td>Name: </td>
-                                        <td><input type="text" name="insertName"/></td>
+                                        <td><input type="text" name="insertName" required/></td>
                                     </tr>
                                     <tr>
                                         <td>Description: </td>
@@ -176,7 +176,7 @@
                                     </tr>
                                     <tr>
                                         <td>Name: </td>
-                                        <td><input type="text" name="updateName" id="cateName"/></td>
+                                        <td><input type="text" name="updateName" id="cateName" required/></td>
                                     </tr>
                                     <tr>
                                         <td>Description: </td>

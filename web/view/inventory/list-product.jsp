@@ -12,7 +12,7 @@
         <jsp:include page="../template/head.jsp" flush="true" />
         <title>Inventory</title>
     </head>
-    <body>
+    <body onload="createPaggerProduct('paggerBottom',${requestScope.pageIndex},2,${requestScope.totalPages})">
         <div class="app">
             <jsp:include page="../template/header.jsp" flush="true"/>
             <div class="grid">
@@ -150,6 +150,7 @@
                                     </tr>
                                 </c:forEach>
                             </table>
+                            <div id="paggerBottom" class="pagger pagger_product"></div>
                         </div>
                     </div>
                 </div>
@@ -176,11 +177,11 @@
                                 <tbody>
                                     <tr>
                                         <td>ID: </td>
-                                        <td><input type="text" name="id"/></td>
+                                        <td><input type="text" name="id" required/></td>
                                     </tr>
                                     <tr>
                                         <td>Name: </td>
-                                        <td><input type="text" name="name"/></td>
+                                        <td><input type="text" name="name" required/></td>
                                     </tr>
                                     <tr>
                                         <td>Category: </td>
@@ -261,7 +262,7 @@
                                     </tr>
                                     <tr>
                                         <td>Name: </td>
-                                        <td><input type="text" name="name" id="proName"/></td>
+                                        <td><input type="text" name="name" id="proName" required/></td>
                                     </tr>
                                     <tr>
                                         <td>Category: </td>
