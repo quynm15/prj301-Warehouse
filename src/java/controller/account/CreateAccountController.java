@@ -23,7 +23,7 @@ import model.account.Feature;
  *
  * @author quynm
  */
-public class CreateAccountController extends BaseAuthPermission {
+public class CreateAccountController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -35,7 +35,7 @@ public class CreateAccountController extends BaseAuthPermission {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -56,7 +56,7 @@ public class CreateAccountController extends BaseAuthPermission {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -94,7 +94,7 @@ public class CreateAccountController extends BaseAuthPermission {
             if (acc.getUsername().equals(username)) {
                 request.setAttribute("errorUsername", "Username has been already used.");
                 request.setAttribute("account", account);
-                processGet(request, response);
+                doGet(request, response);
             }
         }
         //if not, insert to DB

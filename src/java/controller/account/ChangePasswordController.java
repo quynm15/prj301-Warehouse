@@ -19,7 +19,7 @@ import model.account.Account;
  *
  * @author quynm
  */
-public class ChangePasswordController extends BaseAuthPermission {
+public class ChangePasswordController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -31,7 +31,7 @@ public class ChangePasswordController extends BaseAuthPermission {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("view/account/change-password.jsp").forward(request, response);
     }
@@ -45,7 +45,7 @@ public class ChangePasswordController extends BaseAuthPermission {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");

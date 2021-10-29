@@ -11,6 +11,7 @@ import dal.account.FeatureDBContext;
 import java.io.IOException;
 import java.sql.Date;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.account.Account;
@@ -19,7 +20,7 @@ import model.account.Account;
  *
  * @author quynm
  */
-public class UpdateAccountController extends BaseAuthPermission {
+public class UpdateAccountController extends HttpServlet {
 
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -33,7 +34,7 @@ public class UpdateAccountController extends BaseAuthPermission {
      */
     @Override
     //delete
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -56,7 +57,7 @@ public class UpdateAccountController extends BaseAuthPermission {
      */
     @Override
 //    update
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");

@@ -59,7 +59,7 @@ public abstract class BaseAuthPermission extends HttpServlet {
             processGet(request, response);
         }
         else{
-            response.sendRedirect("../access-denied");
+            response.sendRedirect("/access-denied");
         }
     }
 
@@ -78,7 +78,7 @@ public abstract class BaseAuthPermission extends HttpServlet {
             processPost(request, response);
         }
         else{
-            response.sendRedirect("../access-denied");
+            response.sendRedirect("/access-denied");
         }
     }
 

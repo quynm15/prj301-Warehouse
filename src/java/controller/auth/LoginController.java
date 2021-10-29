@@ -34,24 +34,7 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-
-//        Cookie[] cookies = request.getCookies();
-//        Cookie user = null, pass = null;
-//        if (cookies != null) {
-//            for (Cookie c : cookies) {
-//                if (c.getName().equals("username")) {
-//                    user = c;
-//                }
-//            }
-//        }
-//        if (user != null && pass != null) {
-//            AccountDBContext adb = new AccountDBContext();
-//            Account account = adb.getAccount(user.getValue());
-//            request.getSession().setAttribute("account", account);
-//            response.sendRedirect("home");
-//        } else {
-//            request.getRequestDispatcher("view/auth/login.jsp").forward(request, response);
-//        }
+        
         request.getRequestDispatcher("view/auth/login.jsp").forward(request, response);
     }
 

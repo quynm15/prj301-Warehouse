@@ -23,7 +23,7 @@ import model.account.Feature;
  *
  * @author quynm
  */
-public class MyAccountController extends BaseAuthPermission {
+public class MyAccountController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -35,7 +35,7 @@ public class MyAccountController extends BaseAuthPermission {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -64,7 +64,7 @@ public class MyAccountController extends BaseAuthPermission {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -99,7 +99,7 @@ public class MyAccountController extends BaseAuthPermission {
         request.setAttribute("updateMsg", "Updated successfully.");
         //update new information in to session
         request.getSession().setAttribute("account", adb.getAccount(username));
-        processGet(request, response);
+        doGet(request, response);
     }
 
     /**
