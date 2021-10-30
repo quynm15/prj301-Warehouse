@@ -12,19 +12,19 @@
 <!-- CDN to reset CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
 <!--Font Awesome-->
-<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 <!--Linear icons-->
-<link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<link rel="stylesheet" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--Material Icons-->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <!-- CSS -->
 <link rel="stylesheet" href="css/main.css" />
 <link rel="stylesheet" href="css/grid.css" />
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link href="css/style_modal.css" rel="stylesheet" type="text/css"/>
-<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-<script src="${pageContext.servletContext.contextPath}/js/bootstrap.js" type="text/javascript"></script>
-<script src="${pageContext.servletContext.contextPath}/js/modal.js" type="text/javascript"></script>
-<link href="${pageContext.servletContext.contextPath}/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="css/style_modal.css"/>
 
 <!--JS-->
-<script src="${pageContext.servletContext.contextPath}/js/main.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!--<script src="js/bootstrap.js" type="text/javascript"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.min.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/main.js"></script>

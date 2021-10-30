@@ -47,7 +47,7 @@ public class AuthenticationFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        
+
         //if session null, check the cookie to get the account, 
         //if cookie also dont have info, redirect to login page
         if (req.getSession().getAttribute("account") == null) {
@@ -63,12 +63,9 @@ public class AuthenticationFilter implements Filter {
                     AccountDBContext adb = new AccountDBContext();
                     Account account = adb.getAccount(user.getValue());
                     req.getSession().setAttribute("account", account);
-                } else if(!req.getServletPath().equals("/login") 
-                        && !req.getServletPath().equals("/logout") 
-                        &&!req.getServletPath().equals("/home")) {
-                    
-                    //redirect to login if not logged in and access to all page
-                    //except for login logout and home page
+                } else if (!req.getServletPath().equals("/home")) {
+                    //redirect to login if (not logged in and access to any page)
+                    //except for home page
                     res.sendRedirect(req.getContextPath() + "/login");
                     return;
                 }

@@ -10,7 +10,11 @@
     </filter>
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/home</url-pattern>
+        <url-pattern>/account/*</url-pattern>
+        <url-pattern>/product/*</url-pattern>
+        <url-pattern>/category/*</url-pattern>
+        <url-pattern>/supplier/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>AuthorizationFilter</filter-name>

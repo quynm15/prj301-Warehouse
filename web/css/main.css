@@ -404,7 +404,7 @@ select:focus{
 }
 .content__list-category-header:nth-child(3),
 .content__list-category-col:nth-child(3){
-    width: 60%;
+    width: 55%;
 }
 .content__list-category-link{
     text-decoration: none;
