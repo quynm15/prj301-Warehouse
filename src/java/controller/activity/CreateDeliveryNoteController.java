@@ -77,14 +77,14 @@ public class CreateDeliveryNoteController extends HttpServlet {
 
         AccountDBContext adb = new AccountDBContext();
         Account exporter = adb.getAccount(exporterUsername);
-        
+
         Delivery delivery = new Delivery();
         delivery.setDate(date.isEmpty() ? null : Date.valueOf(date));
         delivery.setTime(time.isEmpty() ? null : Time.valueOf(time + ":00"));
         delivery.setExporter(exporter);
         delivery.setRecipient(recipient.isEmpty() ? null : recipient);
         delivery.setComment(commentDelivery.isEmpty() ? null : commentDelivery);
-        
+
         String[] ids = request.getParameterValues("productID");
         String[] quantitys = request.getParameterValues("quantity");
         String[] comments = request.getParameterValues("commentProduct");
@@ -104,7 +104,7 @@ public class CreateDeliveryNoteController extends HttpServlet {
                 deliveryDetails.add(dd);
             }
         }
-        
+
         DeliveryDBContext ddb = new DeliveryDBContext();
         int insertDeliveryID = ddb.insertDelivery(delivery, deliveryDetails);
         if (insertDeliveryID > 0) {

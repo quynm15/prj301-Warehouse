@@ -42,6 +42,8 @@ function createPaggerProduct(div, pageIndex, gap, totalPages) {
     }
 }
 
+//This part is for delivery/receipt activity
+
 function addReceiptProductRow() {
     var list = document.getElementById("productList");
     var lastRow = document.getElementById("lastRow");
@@ -199,6 +201,7 @@ function addDeliveryProductRow() {
     input.classList.add("content__list-delivery-col-input");
     input.type = "text";
     input.name = "quantity";
+    input.setAttribute("onkeydown", "checkOverQuantityToDelivery(this.parentNode.parentNode)");
     input.required = "true";
     col.appendChild(input);
     newNode.appendChild(col);
@@ -259,6 +262,7 @@ function getProductInfo(input) {
                 unit.value = responseJson.unit;
                 unit.disabled = "true";
                 unitPrice.value = responseJson.unitPrice;
+                checkOverQuantityToDelivery(tr);
             } else {
                 input.style.color = 'red';
                 name.removeAttribute("disabled");
@@ -268,37 +272,77 @@ function getProductInfo(input) {
     });
 }
 
+function checkOverQuantityToDelivery(row) {
+    var cols = row.children;
+    var pidValue = cols[0].children[0].value;
+    var quantityInput = cols[4].children[0];
+    $.ajax({
+        type: "GET",
+        data: {id: pidValue},
+        url: "get-product-info",
+        success: function (responseJson) {
+            if (responseJson.id != null) {
+                if (responseJson.quantity < quantityInput.value) {
+                    //if over, set the color to red
+                    quantityInput.style.color = 'red';
+                } else {
+                    quantityInput.style.color = 'unset';
+                }
+            }
+        }
+    });
+}
+
 function validateSubmit(list) {
     var list = document.getElementById(list);
     var flagID = true;
+    var flagUnitPrice = true;
+    var flagQuantity = true;
+    var flagOverQuantity = true;
     //first row is header and last row is add row
     var rows = list.children;
     for (var i = 1; i < rows.length - 1; i++) {
+        checkOverQuantityToDelivery(rows[i]);
         var cols = rows[i].children;
         //col 0 is the first col (productID)
         //col 3 is the unitPrice col
         //col 4 is the quantity col
         //the input is the first children of col
         //--> if the input is red or blank, cannot submit the form
-        if (cols[0].children[0].style.color == 'red' || cols[0].children[0].value.trim() == '') {
+        var proID = cols[0].children[0];
+        var unitPrice = cols[3].children[0];
+        var quantity = cols[4].children[0];
+        if (proID.style.color == 'red' || proID.value.trim() == '') {
             flagID = false;
             break;
         }
-    }
-    //isNumeric is a jquery function to check the data is a number or not (include fraction number)
-    var unitPrice = cols[3].children[0].value;
-    var quantity = cols[4].children[0].value;
-    if (flagID) {
-        if ($.isNumeric(unitPrice) && unitPrice > 0) {
-            if ($.isNumeric(quantity) && quantity > 0) {
-                document.getElementById("createForm").submit();
-            } else {
-                document.getElementById("errorSubmit").innerHTML = "Quantity must be a positive number!<br/>";
-            }
-        } else {
-            document.getElementById("errorSubmit").innerHTML = "Unit price must be a positive number!<br/>";
+        //isNumeric is a jquery function to check the data is a number or not (include fraction number)
+        if (!$.isNumeric(unitPrice.value) || unitPrice.value < 0) {
+            flagUnitPrice = false;
+            break;
         }
+        if (!$.isNumeric(quantity.value) || quantity.value < 0) {
+            flagQuantity = false;
+            break;
+        }
+        if (quantity.style.color == 'red') {
+            flagOverQuantity = false;
+            break;
+        }
+    }
+
+    if (flagID && flagUnitPrice && flagQuantity && flagOverQuantity) {
+        document.getElementById("createForm").submit();
     } else {
-        document.getElementById("errorSubmit").innerHTML = "Cannot create because some products are invalid or blank!<br/>";
+        if (!flagID)
+            document.getElementById("errorSubmit").innerHTML = "Cannot create because some products are invalid or blank!<br/>";
+        if (!flagUnitPrice)
+            document.getElementById("errorSubmit").innerHTML = "Unit price must be a positive number!<br/>";
+        if (!flagQuantity)
+            document.getElementById("errorSubmit").innerHTML = "Quantity must be a positive number!<br/>";
+        if (!flagOverQuantity)
+            document.getElementById("errorSubmit").innerHTML = "There is a quantity which over instock!<br/>";
     }
 }
+
+

@@ -85,8 +85,8 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button id="btnSubmit" class="button button--primary" 
-                                        onclick="validateSubmit('productList')">Create</button>
+                                <a id="btnSubmit" class="button button--primary" 
+                                        onclick="validateSubmit('productList')">Create</a>
                                 <p id="errorSubmit" class="errorMsg"></p>
                             </form>
                         </div>
