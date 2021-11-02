@@ -9,12 +9,12 @@ function submitForm(form) {
 
 function createPaggerProduct(div, pageIndex, gap, totalPages) {
     var container = document.getElementById(div);
-    var prevPage = pageIndex-1;
-    var nextPage = pageIndex+1;
+    var prevPage = pageIndex - 1;
+    var nextPage = pageIndex + 1;
     if (container != null) {
         container.innerHTML += "<a id='firstPagger' class='pagger__link' href='product/list?page=1'><span class='material-icons'>first_page</span></a>";
         container.innerHTML += "<a id='prevPagger' class='pagger__link' href='product/list?page=" + prevPage + "'><span class='material-icons'>chevron_left</span></a>";
-        if (pageIndex <= 1){
+        if (pageIndex <= 1) {
 //            document.getElementById("firstPagger").classList.add("pagger__link--disable");
             document.getElementById("firstPagger").removeAttribute("href");
 //            document.getElementById("prevPagger").classList.add("pagger__link--disable");
@@ -33,7 +33,7 @@ function createPaggerProduct(div, pageIndex, gap, totalPages) {
         }
         container.innerHTML += "<a id='nextPagger' class='pagger__link' href='product/list?page=" + nextPage + "'><span class='material-icons'>chevron_right</span></i></a>";
         container.innerHTML += "<a id='lastPagger' class='pagger__link' href='product/list?page=" + totalPages + "'><span class='material-icons'>last_page</span></i></a>";
-        if (pageIndex >= totalPages){
+        if (pageIndex >= totalPages) {
 //            document.getElementById("nextPagger").classList.add("pagger__link--disable");
             document.getElementById("nextPagger").removeAttribute("href");
 //            document.getElementById("lastPagger").classList.add("pagger__link--disable");
@@ -42,3 +42,263 @@ function createPaggerProduct(div, pageIndex, gap, totalPages) {
     }
 }
 
+function addReceiptProductRow() {
+    var list = document.getElementById("productList");
+    var lastRow = document.getElementById("lastRow");
+    var newNode = document.createElement("tr");
+    newNode.classList.add("content__list-receipt-row");
+
+    var col;
+    var input;
+    //id
+    col = document.createElement("td");
+    col.classList.add("content__list-receipt-col");
+    input = document.createElement("input");
+    input.classList.add("content__list-receipt-col-input");
+    input.type = "text";
+    input.name = "productID";
+    input.required = "true";
+    input.setAttribute("onchange", "getProductInfo(this)");
+    col.appendChild(input);
+    newNode.appendChild(col);
+    //name
+    col = document.createElement("td");
+    col.classList.add("content__list-receipt-col");
+    input = document.createElement("input");
+    input.classList.add("content__list-receipt-col-input");
+    input.type = "text";
+    input.name = "productName";
+    col.appendChild(input);
+    newNode.appendChild(col);
+    //unit
+    col = document.createElement("td");
+    col.classList.add("content__list-receipt-col");
+    input = document.createElement("input");
+    input.classList.add("content__list-receipt-col-input");
+    input.type = "text";
+    input.name = "productUnit";
+    col.appendChild(input);
+    newNode.appendChild(col);
+    //unitPrice
+    col = document.createElement("td");
+    col.classList.add("content__list-receipt-col");
+    input = document.createElement("input");
+    input.classList.add("content__list-receipt-col-input");
+    input.type = "text";
+    input.name = "productUnitPrice";
+    input.required = "true";
+    col.appendChild(input);
+    newNode.appendChild(col);
+    //quantity
+    col = document.createElement("td");
+    col.classList.add("content__list-receipt-col");
+    input = document.createElement("input");
+    input.classList.add("content__list-receipt-col-input");
+    input.type = "text";
+    input.name = "quantity";
+    input.required = "true";
+    col.appendChild(input);
+    newNode.appendChild(col);
+    //mgf
+    col = document.createElement("td");
+    col.classList.add("content__list-receipt-col");
+    input = document.createElement("input");
+    input.classList.add("content__list-receipt-col-input");
+    input.type = "date";
+    input.name = "mgf";
+    col.appendChild(input);
+    newNode.appendChild(col);
+    //exp
+    col = document.createElement("td");
+    col.classList.add("content__list-receipt-col");
+    input = document.createElement("input");
+    input.classList.add("content__list-receipt-col-input");
+    input.type = "date";
+    input.name = "exp";
+    col.appendChild(input);
+    newNode.appendChild(col);
+    //comment
+    col = document.createElement("td");
+    col.classList.add("content__list-receipt-col");
+    input = document.createElement("input");
+    input.classList.add("content__list-receipt-col-input");
+    input.type = "text";
+    input.name = "commentProduct";
+    col.appendChild(input);
+    newNode.appendChild(col);
+    //delete
+    col = document.createElement("td");
+    col.classList.add("content__list-receipt-col");
+    col.setAttribute("onclick", "deleteRow(this)");
+    var deleteBtn = document.createElement("a");
+    deleteBtn.classList.add("button--small");
+    deleteBtn.classList.add("button--transparent");
+    deleteBtn.setAttribute("data-toggle", "modal");
+    deleteBtn.setAttribute("data-target", "#modalConfirmDelete");
+    var icon = document.createElement("span");
+    icon.classList.add("lnr");
+    icon.classList.add("lnr-trash");
+    deleteBtn.appendChild(icon);
+    col.appendChild(deleteBtn);
+    newNode.appendChild(col);
+
+    list.insertBefore(newNode, lastRow);
+}
+
+function addDeliveryProductRow() {
+    var list = document.getElementById("productList");
+    var lastRow = document.getElementById("lastRow");
+    var newNode = document.createElement("tr");
+    newNode.classList.add("content__list-delivery-row");
+
+    var col;
+    var input;
+    //id
+    col = document.createElement("td");
+    col.classList.add("content__list-delivery-col");
+    input = document.createElement("input");
+    input.classList.add("content__list-delivery-col-input");
+    input.type = "text";
+    input.name = "productID";
+    input.required = "true";
+    input.setAttribute("onchange", "getProductInfo(this)");
+    col.appendChild(input);
+    newNode.appendChild(col);
+    //name
+    col = document.createElement("td");
+    col.classList.add("content__list-delivery-col");
+    input = document.createElement("input");
+    input.classList.add("content__list-delivery-col-input");
+    input.type = "text";
+    input.name = "productName";
+    col.appendChild(input);
+    newNode.appendChild(col);
+    //unit
+    col = document.createElement("td");
+    col.classList.add("content__list-delivery-col");
+    input = document.createElement("input");
+    input.classList.add("content__list-delivery-col-input");
+    input.type = "text";
+    input.name = "productUnit";
+    col.appendChild(input);
+    newNode.appendChild(col);
+    //unitPrice
+    col = document.createElement("td");
+    col.classList.add("content__list-delivery-col");
+    input = document.createElement("input");
+    input.classList.add("content__list-delivery-col-input");
+    input.type = "text";
+    input.name = "productUnitPrice";
+    input.required = "true";
+    col.appendChild(input);
+    newNode.appendChild(col);
+    //quantity
+    col = document.createElement("td");
+    col.classList.add("content__list-delivery-col");
+    input = document.createElement("input");
+    input.classList.add("content__list-delivery-col-input");
+    input.type = "text";
+    input.name = "quantity";
+    input.required = "true";
+    col.appendChild(input);
+    newNode.appendChild(col);
+    //comment
+    col = document.createElement("td");
+    col.classList.add("content__list-delivery-col");
+    input = document.createElement("input");
+    input.classList.add("content__list-delivery-col-input");
+    input.type = "text";
+    input.name = "commentProduct";
+    col.appendChild(input);
+    newNode.appendChild(col);
+    //delete
+    col = document.createElement("td");
+    col.classList.add("content__list-delivery-col");
+    col.setAttribute("onclick", "deleteRow(this)");
+    var deleteBtn = document.createElement("a");
+    deleteBtn.classList.add("button--small");
+    deleteBtn.classList.add("button--transparent");
+    deleteBtn.setAttribute("data-toggle", "modal");
+    deleteBtn.setAttribute("data-target", "#modalConfirmDelete");
+    var icon = document.createElement("span");
+    icon.classList.add("lnr");
+    icon.classList.add("lnr-trash");
+    deleteBtn.appendChild(icon);
+    col.appendChild(deleteBtn);
+    newNode.appendChild(col);
+
+    list.insertBefore(newNode, lastRow);
+}
+
+function deleteRow(td) {
+    if (document.getElementById("confirmDelete") != null) {
+        document.getElementById("confirmDelete").onclick = function () {
+            td.parentNode.remove();
+            $('#modalConfirmDelete').modal('hide');
+        };
+    }
+}
+
+function getProductInfo(input) {
+    var pid = input.value;
+    var td = input.parentNode;
+    var tr = td.parentNode;
+
+    var name = tr.childNodes[1].childNodes[0];
+    var unit = tr.childNodes[2].childNodes[0];
+    var unitPrice = tr.childNodes[3].childNodes[0];
+    $.ajax({
+        type: "GET",
+        data: {id: pid},
+        url: "get-product-info",
+        success: function (responseJson) {
+            if (responseJson.id != null) {
+                input.style.color = 'unset';
+                name.value = responseJson.name;
+                name.disabled = "true";
+                unit.value = responseJson.unit;
+                unit.disabled = "true";
+                unitPrice.value = responseJson.unitPrice;
+            } else {
+                input.style.color = 'red';
+                name.removeAttribute("disabled");
+                unit.removeAttribute("disabled");
+            }
+        }
+    });
+}
+
+function validateSubmit(list) {
+    var list = document.getElementById(list);
+    var flagID = true;
+    //first row is header and last row is add row
+    var rows = list.children;
+    for (var i = 1; i < rows.length - 1; i++) {
+        var cols = rows[i].children;
+        //col 0 is the first col (productID)
+        //col 3 is the unitPrice col
+        //col 4 is the quantity col
+        //the input is the first children of col
+        //--> if the input is red or blank, cannot submit the form
+        if (cols[0].children[0].style.color == 'red' || cols[0].children[0].value.trim() == '') {
+            flagID = false;
+            break;
+        }
+    }
+    //isNumeric is a jquery function to check the data is a number or not (include fraction number)
+    var unitPrice = cols[3].children[0].value;
+    var quantity = cols[4].children[0].value;
+    if (flagID) {
+        if ($.isNumeric(unitPrice) && unitPrice > 0) {
+            if ($.isNumeric(quantity) && quantity > 0) {
+                document.getElementById("createForm").submit();
+            } else {
+                document.getElementById("errorSubmit").innerHTML = "Quantity must be a positive number!<br/>";
+            }
+        } else {
+            document.getElementById("errorSubmit").innerHTML = "Unit price must be a positive number!<br/>";
+        }
+    } else {
+        document.getElementById("errorSubmit").innerHTML = "Cannot create because some products are invalid or blank!<br/>";
+    }
+}

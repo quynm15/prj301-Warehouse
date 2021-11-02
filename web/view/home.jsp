@@ -28,7 +28,7 @@
                                             <a href="product/list" class="content-home__top-link content-home__top-link--green"> Inventory </a>
                                         </div>
                                         <div class="content-home__top-btn col l-3">
-                                            <a href="#" class="content-home__top-link content-home__top-link--red"> Goods Receipt - Issue </a>
+                                            <a href="delivery/create" class="content-home__top-link content-home__top-link--red"> Goods Receipt - Issue </a>
                                         </div>
                                         <div class="content-home__top-btn col l-3">
                                             <a href="#" class="content-home__top-link content-home__top-link--orange"> Report </a>

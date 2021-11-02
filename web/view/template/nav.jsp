@@ -28,10 +28,10 @@
             <p class="content__nav-title">Goods Receipt - Delivery</p>
             <ul class="content__nav-list">
                 <li class="content__nav-item">
-                    <a href="#" class="content__nav-link">Receipt</a>
+                    <a href="receipt/create" class="content__nav-link">Receipt</a>
                 </li>
                 <li class="content__nav-item">
-                    <a href="#" class="content__nav-link">Delivery</a>
+                    <a href="delivery/create" class="content__nav-link">Delivery</a>
                 </li>
             </ul>
 

@@ -15,6 +15,8 @@
         <url-pattern>/product/*</url-pattern>
         <url-pattern>/category/*</url-pattern>
         <url-pattern>/supplier/*</url-pattern>
+        <url-pattern>/receipt/*</url-pattern>
+        <url-pattern>/delivery/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>AuthorizationFilter</filter-name>
@@ -22,6 +24,8 @@
         <url-pattern>/product/*</url-pattern>
         <url-pattern>/category/*</url-pattern>
         <url-pattern>/supplier/*</url-pattern>
+        <url-pattern>/receipt/*</url-pattern>
+        <url-pattern>/delivery/*</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>LoginController</servlet-name>
@@ -84,10 +88,6 @@
         <servlet-class>controller.inventory.CreateCategoryController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CheckCategoryInUseController</servlet-name>
-        <servlet-class>controller.inventory.CheckCategoryInUseController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>InactiveCategoryController</servlet-name>
         <servlet-class>controller.inventory.InactiveCategoryController</servlet-class>
     </servlet>
@@ -118,6 +118,34 @@
     <servlet>
         <servlet-name>InactiveProductController</servlet-name>
         <servlet-class>controller.inventory.InactiveProductController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateReceivedNoteController</servlet-name>
+        <servlet-class>controller.activity.CreateReceivedNoteController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetProductInfoController</servlet-name>
+        <servlet-class>controller.activity.GetProductInfoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReceivedNoteToExcelController</servlet-name>
+        <servlet-class>controller.activity.ReceivedNoteToExcelController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>test</servlet-name>
+        <servlet-class>controller.activity.test</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReceiptDetailController</servlet-name>
+        <servlet-class>controller.activity.ReceiptDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateDeliveryNoteController</servlet-name>
+        <servlet-class>controller.activity.CreateDeliveryNoteController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeliveryDetailController</servlet-name>
+        <servlet-class>controller.activity.DeliveryDetailController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -180,10 +208,6 @@
         <url-pattern>/category/create</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CheckCategoryInUseController</servlet-name>
-        <url-pattern>/category/check-to-delete</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>InactiveCategoryController</servlet-name>
         <url-pattern>/category/inactive</url-pattern>
     </servlet-mapping>
@@ -214,6 +238,34 @@
     <servlet-mapping>
         <servlet-name>InactiveProductController</servlet-name>
         <url-pattern>/product/inactive</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateReceivedNoteController</servlet-name>
+        <url-pattern>/receipt/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetProductInfoController</servlet-name>
+        <url-pattern>/get-product-info</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReceivedNoteToExcelController</servlet-name>
+        <url-pattern>/receipt/receiptToExcel</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>test</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReceiptDetailController</servlet-name>
+        <url-pattern>/receipt/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateDeliveryNoteController</servlet-name>
+        <url-pattern>/delivery/create</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeliveryDetailController</servlet-name>
+        <url-pattern>/delivery/detail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

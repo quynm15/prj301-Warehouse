@@ -21,6 +21,7 @@ html {
 
 input[type=text],
 input[type=date],
+input[type=time],
 input[type=password],
 input[type=email],
 textarea,
@@ -30,9 +31,11 @@ select{
     border-bottom: 1px solid #aaa;
     padding: 8px 5px;
     resize: none;
+    margin-right: 10px;
 }
 input[type=text]:focus,
 input[type=date]:focus,
+input[type=time]:focus,
 input[type=password]:focus,
 input[type=email]:focus,
 textarea:focus,
@@ -347,7 +350,7 @@ select:focus{
     width: 33%;
 }
 .content__tab-col--active{
-    border-bottom-color: var(--primary-color);
+    border-bottom-color: orangered;
 }
 .content__tab-link{
     text-decoration: none;
@@ -541,7 +544,145 @@ select:focus{
     text-overflow: ellipsis;
 }
 
+/*List receipt*/
+.content__list-receipt-table{
+    width: 100%;
+    table-layout:fixed;
+    align-items: center;
+}
+.content__list-receipt-row{
+    width: 100%;
+    border-bottom: 2px solid #ccc;
+}
+.content__list-receipt-header{
+    text-align: left;
+    font-weight: 700;
+    padding: 10px 5px;
+    border-bottom: 2px solid var(--primary-color);
+}
+.content__list-receipt-col{
+    padding: 5px 5px;
+    border-bottom: 2px solid #ccc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.content__list-receipt-header:nth-child(1),
+.content__list-receipt-col:nth-child(1){
+    width: 8%;
+}
+.content__list-receipt-header:nth-child(2),
+.content__list-receipt-col:nth-child(2){
+    width: 20%;
+}
+.content__list-receipt-header:nth-child(3),
+.content__list-receipt-col:nth-child(3){
+    width: 5%;
+}
+.content__list-receipt-header:nth-child(4),
+.content__list-receipt-col:nth-child(4){
+    width: 8%;
+    text-align: right;
+}
+.content__list-receipt-header:nth-child(5),
+.content__list-receipt-col:nth-child(5){
+    width: 8%;
+    text-align: right;
+}
+.content__list-receipt-header:nth-child(6),
+.content__list-receipt-col:nth-child(6){
+    width: 15%;
+}
+.content__list-receipt-header:nth-child(7),
+.content__list-receipt-col:nth-child(7){
+    width: 15%;
+}
+.content__list-receipt-header:nth-child(8),
+.content__list-receipt-col:nth-child(8){
+    width: 18%;
+}
+input[type="text"].content__list-receipt-col-input,
+input[type="date"].content__list-receipt-col-input{
+    width: 100%;
+    padding: 0 5px;
+    border: none;
+}
+.content__list-receipt-link{
+    text-decoration: none;
+    color: orangered;
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
+/*List delivery*/
+.content__list-delivery-table{
+    width: 100%;
+    table-layout:fixed;
+    align-items: center;
+}
+.content__list-delivery-row{
+    width: 100%;
+    border-bottom: 2px solid #ccc;
+}
+.content__list-delivery-header{
+    text-align: left;
+    font-weight: 700;
+    padding: 10px 5px;
+    border-bottom: 2px solid var(--primary-color);
+}
+.content__list-delivery-col{
+    padding: 5px 5px;
+    border-bottom: 2px solid #ccc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.content__list-delivery-header:nth-child(1),
+.content__list-delivery-col:nth-child(1){
+    width: 10%;
+}
+.content__list-delivery-header:nth-child(2),
+.content__list-delivery-col:nth-child(2){
+    width: 30%;
+}
+.content__list-delivery-header:nth-child(3),
+.content__list-delivery-col:nth-child(3){
+    width: 5%;
+}
+.content__list-delivery-header:nth-child(4),
+.content__list-delivery-col:nth-child(4){
+    width: 10%;
+    text-align: right;
+}
+.content__list-delivery-header:nth-child(5),
+.content__list-delivery-col:nth-child(5){
+    width: 10%;
+    text-align: right;
+}
+.content__list-delivery-header:nth-child(6),
+.content__list-delivery-col:nth-child(6){
+    width: 30%;
+}
+input[type="text"].content__list-delivery-col-input,
+input[type="date"].content__list-delivery-col-input{
+    width: 100%;
+    padding: 0 5px;
+    border: none;
+}
+.content__list-delivery-link{
+    text-decoration: none;
+    color: orangered;
+    display: block;
+    width: 100%;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 /* Footer */
 .footer {

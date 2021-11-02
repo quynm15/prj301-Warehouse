@@ -22,7 +22,7 @@
                     <hr class="w3-border-black w3-animate-left" style="margin:auto;width:50%">
                     <h3 class="w3-center w3-animate-right">You don't have permission to view this site.</h3>
                     <h3 class="w3-center w3-animate-zoom">🚫🚫🚫🚫</h3>
-                    <h6 class="w3-center w3-animate-zoom"><a href="home">Back to home page</a></h6>
+                    <h6 class="w3-center w3-animate-zoom"><a onclick="history.back()">Back</a></h6>
                 </div>
             </div>
             <jsp:include page="/view/template/footer.jsp" flush="true"/>
