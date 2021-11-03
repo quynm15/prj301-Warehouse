@@ -61,6 +61,7 @@ function addReceiptProductRow() {
     input.name = "productID";
     input.required = "true";
     input.setAttribute("onchange", "getProductInfo(this)");
+    input.setAttribute("onkeydown", "getProductInfo(this)");
     col.appendChild(input);
     newNode.appendChild(col);
     //name
@@ -164,6 +165,7 @@ function addDeliveryProductRow() {
     input.name = "productID";
     input.required = "true";
     input.setAttribute("onchange", "getProductInfo(this)");
+    input.setAttribute("onkeydown", "getProductInfo(this)");
     col.appendChild(input);
     newNode.appendChild(col);
     //name

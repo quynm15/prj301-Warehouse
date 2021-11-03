@@ -4,6 +4,7 @@
     Author     : quynm
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -41,10 +42,11 @@
                             <hr/>
 
                             <c:set value="${requestScope.delivery}" var="delivery"></c:set>
-                                <div class="content__delivery-info">
-                                    <p class="content__delivery-info-text">No: ${delivery.id}</p>
+                            <fmt:formatDate value="${delivery.date}" pattern="dd-MM-yyyy" var="date"/>
+                            <div class="content__delivery-info">
+                                <p class="content__delivery-info-text">No: ${delivery.id}</p>
                                 <p class="content__delivery-info-text">
-                                    Date: ${delivery.date}
+                                    Date: ${date}
                                     Time: ${delivery.time}
                                 </p>
                                 <p class="content__delivery-info-text">
@@ -60,21 +62,33 @@
                                         <th class="content__list-delivery-header">ProductID</th>
                                         <th class="content__list-delivery-header">Product Name</th>
                                         <th class="content__list-delivery-header">Unit</th>
-                                        <th class="content__list-delivery-header">Quantity</th>                                        <th class="content__list-delivery-header">Comment</th>
+                                        <th class="content__list-delivery-header">Unit Price</th>
+                                        <th class="content__list-delivery-header">Quantity</th>
+                                        <th class="content__list-delivery-header">Comment</th>
                                     </tr>
                                     <c:forEach items="${requestScope.deliveryDetails}" var="dd">
+                                        <fmt:formatNumber value="${dd.product.unitPrice}" type="currency" currencySymbol="" var="uPrice"/>
                                         <tr class="content__list-delivery-row">
                                             <td class="content__list-delivery-col">${dd.product.id}</td>
                                             <td class="content__list-delivery-col">${dd.product.name}</td>
                                             <td class="content__list-delivery-col">${dd.product.unit}</td>
+                                            <td class="content__list-delivery-col">${uPrice}</td>
                                             <td class="content__list-delivery-col">${dd.quantity}</td>
                                             <td class="content__list-delivery-col">${dd.comment}</td>
                                         </tr>
                                     </c:forEach>
+                                    <fmt:formatNumber value="${delivery.value}" type="currency" currencySymbol=" " var="value"/>
+                                    <tr class="content__list-delivery-row">
+                                        <td class="content__list-delivery-col" colspan="3">Total</td>
+                                        <td class="content__list-delivery-col" colspan="2" style="text-align: right">
+                                            ${value}
+                                        </td>
+                                        <td class="content__list-delivery-col"></td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <a class="button button--primary" href="delivery/create">Create new note</a>
-                            <a class="button button--green" href="#">View all delivery note</a>
+                            <a class="button button--green" href="report/delivery-list">View all delivery note</a>
                         </div>
                     </div>
                 </div>

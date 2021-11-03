@@ -11,6 +11,7 @@
     <filter-mapping>
         <filter-name>AuthenticationFilter</filter-name>
         <url-pattern>/home</url-pattern>
+        <!--<url-pattern>/report</url-pattern>-->
         <url-pattern>/account/*</url-pattern>
         <url-pattern>/product/*</url-pattern>
         <url-pattern>/category/*</url-pattern>
@@ -147,6 +148,22 @@
         <servlet-name>DeliveryDetailController</servlet-name>
         <servlet-class>controller.activity.DeliveryDetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListReceiptController</servlet-name>
+        <servlet-class>controller.report.ListReceiptController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportHomeController</servlet-name>
+        <servlet-class>controller.report.ReportHomeController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteReceiptController</servlet-name>
+        <servlet-class>controller.activity.DeleteReceiptController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListDeliveryController</servlet-name>
+        <servlet-class>controller.report.ListDeliveryController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -266,6 +283,22 @@
     <servlet-mapping>
         <servlet-name>DeliveryDetailController</servlet-name>
         <url-pattern>/delivery/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListReceiptController</servlet-name>
+        <url-pattern>/report/receipt-list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportHomeController</servlet-name>
+        <url-pattern>/report</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteReceiptController</servlet-name>
+        <url-pattern>/receipt/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListDeliveryController</servlet-name>
+        <url-pattern>/report/delivery-list</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -31,7 +31,7 @@
                                             <a href="delivery/create" class="content-home__top-link content-home__top-link--red"> Goods Receipt - Issue </a>
                                         </div>
                                         <div class="content-home__top-btn col l-3">
-                                            <a href="#" class="content-home__top-link content-home__top-link--orange"> Report </a>
+                                            <a href="report" class="content-home__top-link content-home__top-link--orange"> Report </a>
                                         </div>
                                         <div class="content-home__top-btn col l-3">
                                             <a href="account/list" class="content-home__top-link content-home__top-link--blue"> Account management </a>

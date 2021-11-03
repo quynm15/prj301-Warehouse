@@ -21,6 +21,7 @@ public class Receipt {
     private Supplier supplier;
     private String shipper;
     private String comment;
+    private double value;
 
     public Receipt() {
     }
@@ -89,6 +90,14 @@ public class Receipt {
 
     public void setShipper(String shipper) {
         this.shipper = shipper;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
     }
     
     

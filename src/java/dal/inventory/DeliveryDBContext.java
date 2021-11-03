@@ -7,10 +7,13 @@ package dal.inventory;
 
 import dal.DBContext;
 import dal.account.AccountDBContext;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.account.Account;
@@ -175,7 +178,7 @@ public class DeliveryDBContext extends DBContext {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, deliveryID);
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 ProductDBContext pdb = new ProductDBContext();
                 Product product = pdb.getProduct(rs.getString("ProductID"));
                 DeliveryDetail dd = new DeliveryDetail(deliveryID, product, rs.getDouble(3), rs.getString(4));
@@ -185,5 +188,109 @@ public class DeliveryDBContext extends DBContext {
             Logger.getLogger(DeliveryDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return deliveryDetails;
+    }
+
+    public ArrayList<Delivery> getAllDeliveries() {
+        ArrayList<Delivery> deliveries = new ArrayList<>();
+        try {
+            String sql = "SELECT [DeliveryID]\n"
+                    + "      ,[DeliveryDate]\n"
+                    + "      ,[DeliveryTime]\n"
+                    + "      ,[Exporter]\n"
+                    + "      ,[Recipient]\n"
+                    + "      ,[Comment]\n"
+                    + "  FROM [Delivery]";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                AccountDBContext adb = new AccountDBContext();
+                Account exporter = adb.getAccount(rs.getString("Exporter"));
+
+                Delivery d = new Delivery(rs.getInt(1), rs.getDate(2), rs.getTime(3), exporter,
+                        rs.getString(5), rs.getString(6));
+                deliveries.add(d);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DeliveryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return deliveries;
+    }
+    
+    public ArrayList<Delivery> getAllDeliveries(Date from, Date to) {
+        ArrayList<Delivery> deliveries = new ArrayList<>();
+        try {
+            String sql = "SELECT [DeliveryID]\n"
+                    + "      ,[DeliveryDate]\n"
+                    + "      ,[DeliveryTime]\n"
+                    + "      ,[Exporter]\n"
+                    + "      ,[Recipient]\n"
+                    + "      ,[Comment]\n"
+                    + "  FROM [Delivery]\n"
+                    + "  WHERE 1=1 ";
+            HashMap<Integer, String[]> params = new HashMap<>();
+            int countParam = 0;
+            if (from != null) {
+                sql += " AND [DeliveryDate] >= ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Date.class.getName();
+                param[1] = from + "";
+                params.put(countParam, param);
+            }
+            if (to != null) {
+                sql += " AND [DeliveryDate] <= ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Date.class.getName();
+                param[1] = to + "";
+                params.put(countParam, param);
+            }
+            
+            PreparedStatement stm = connection.prepareStatement(sql);
+            //Assign value for param
+            for (Map.Entry<Integer, String[]> entry : params.entrySet()) {
+                Integer key = entry.getKey();
+                String[] value = entry.getValue();
+
+                if (value[0].equals(Integer.class.getName())) {
+                    stm.setInt(key, Integer.parseInt(value[1]));
+                }
+                if (value[0].equals(Date.class.getName())) {
+                    stm.setDate(key, Date.valueOf(value[1]));
+                }
+            }
+            
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                AccountDBContext adb = new AccountDBContext();
+                Account exporter = adb.getAccount(rs.getString("Exporter"));
+
+                Delivery d = new Delivery(rs.getInt(1), rs.getDate(2), rs.getTime(3), exporter,
+                        rs.getString(5), rs.getString(6));
+                deliveries.add(d);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DeliveryDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return deliveries;
+    }
+
+    public double getDeliveryValue(int id) {
+        double value = 0;
+        try {
+            String sql = "SELECT d.[Quantity], [unitPrice]\n"
+                    + "  FROM [DeliveryDetail] d JOIN [Products] p\n"
+                    + "  ON d.ProductID = p.ProductID\n"
+                    + "  WHERE [DeliveryID] = ? ";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                value += rs.getDouble(1) * rs.getDouble(2);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceiptDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return value;
     }
 }

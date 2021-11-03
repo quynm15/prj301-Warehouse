@@ -20,6 +20,7 @@ public class Delivery {
     private Account exporter;
     private String recipient;
     private String comment;
+    private double value;
 
     public Delivery() {
     }
@@ -79,6 +80,14 @@ public class Delivery {
 
     public void setRecipient(String recipient) {
         this.recipient = recipient;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
     }
     
     

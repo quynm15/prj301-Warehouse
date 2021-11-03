@@ -7,10 +7,13 @@ package dal.inventory;
 
 import dal.DBContext;
 import dal.account.AccountDBContext;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.account.Account;
@@ -77,17 +80,15 @@ public class ReceiptDBContext extends DBContext {
                 stm_RD.setString(8, rd.getComment());
                 stm_RD.executeUpdate();
 
-                //update quantity and unitPrice to product
+                //update quantity to product
                 String sql_up = "UPDATE [Products]\n"
                         + "   SET [Quantity] = ?\n"
-                        + "	  ,[unitPrice] = ?\n"
                         + " WHERE [ProductID] = ?";
                 PreparedStatement stm_up = connection.prepareStatement(sql_up);
                 //rd.getProduct.quantity is the quantity of product in warehouse
                 //rd.getQuantity is the quantity to receipt read from user
                 stm_up.setDouble(1, rd.getProduct().getQuantity());
-                stm_up.setDouble(2, rd.getUnitPrice());
-                stm_up.setString(3, rd.getProduct().getId());
+                stm_up.setString(2, rd.getProduct().getId());
                 stm_up.executeUpdate();
             }
             connection.commit();
@@ -166,5 +167,173 @@ public class ReceiptDBContext extends DBContext {
             Logger.getLogger(ReceiptDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return rds;
+    }
+
+    public ArrayList<Receipt> getAllReceipts() {
+        ArrayList<Receipt> receipts = new ArrayList<>();
+        try {
+            String sql = "SELECT [ReceiptID]\n"
+                    + "      ,[ReceiptDate]\n"
+                    + "      ,[ReceiptTime]\n"
+                    + "      ,[Importer]\n"
+                    + "      ,[SupplierID]\n"
+                    + "      ,[Shipper]\n"
+                    + "      ,[Comment]\n"
+                    + "  FROM [Receipt]";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                AccountDBContext adb = new AccountDBContext();
+                Account importer = adb.getAccount(rs.getString("Importer"));
+
+                SupplierDBContext sdb = new SupplierDBContext();
+                Supplier supplier = sdb.getSupplier(rs.getInt("SupplierID"));
+
+                Receipt receipt = new Receipt(rs.getInt(1), rs.getDate(2), rs.getTime(3),
+                        importer, supplier, rs.getString(6), rs.getString(7));
+                receipts.add(receipt);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceiptDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return receipts;
+    }
+
+    public ArrayList<Receipt> getAllReceipts(Date from, Date to, int supID) {
+        ArrayList<Receipt> receipts = new ArrayList<>();
+        try {
+            String sql = "SELECT [ReceiptID]\n"
+                    + "      ,[ReceiptDate]\n"
+                    + "      ,[ReceiptTime]\n"
+                    + "      ,[Importer]\n"
+                    + "      ,[SupplierID]\n"
+                    + "      ,[Shipper]\n"
+                    + "      ,[Comment]\n"
+                    + "  FROM [Receipt]"
+                    + "  WHERE 1 = 1 ";
+            HashMap<Integer, String[]> params = new HashMap<>();
+            int countParam = 0;
+            if (from != null) {
+                sql += " AND [ReceiptDate] >= ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Date.class.getName();
+                param[1] = from + "";
+                params.put(countParam, param);
+            }
+            if (to != null) {
+                sql += " AND [ReceiptDate] <= ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Date.class.getName();
+                param[1] = to + "";
+                params.put(countParam, param);
+            }
+            if (supID != 0) {
+                sql += " AND [SupplierID] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Integer.class.getName();
+                param[1] = supID + "";
+                params.put(countParam, param);
+            }
+            PreparedStatement stm = connection.prepareStatement(sql);
+            //Assign value for param
+            for (Map.Entry<Integer, String[]> entry : params.entrySet()) {
+                Integer key = entry.getKey();
+                String[] value = entry.getValue();
+
+                if (value[0].equals(Integer.class.getName())) {
+                    stm.setInt(key, Integer.parseInt(value[1]));
+                }
+                if (value[0].equals(Date.class.getName())) {
+                    stm.setDate(key, Date.valueOf(value[1]));
+                }
+            }
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                AccountDBContext adb = new AccountDBContext();
+                Account importer = adb.getAccount(rs.getString("Importer"));
+
+                SupplierDBContext sdb = new SupplierDBContext();
+                Supplier supplier = sdb.getSupplier(rs.getInt("SupplierID"));
+
+                Receipt receipt = new Receipt(rs.getInt(1), rs.getDate(2), rs.getTime(3),
+                        importer, supplier, rs.getString(6), rs.getString(7));
+                receipts.add(receipt);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceiptDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return receipts;
+    }
+
+    public double getReceiptValue(int id) {
+        double value = 0;
+        try {
+            String sql = "SELECT [unitPrice]\n"
+                    + "      ,[Quantity]\n"
+                    + "  FROM [ReceiptDetail]\n"
+                    + "  WHERE [ReceiptID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                value += rs.getDouble(1) * rs.getDouble(2);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceiptDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return value;
+    }
+
+    public void deleteReceipt(int rid, ArrayList<ReceiptDetail> receiptDetails) {
+        try {
+            connection.setAutoCommit(false);
+
+            for (ReceiptDetail rd : receiptDetails) {
+                //update Quantity in Product table
+                String sql_up = "UPDATE [Products]\n"
+                        + "   SET [Quantity] = ((SELECT [Quantity]\n"
+                        + "			FROM [Products]\n"
+                        + "			WHERE [ProductID] = ?) - ?) \n"
+                        + " WHERE [ProductID] = ? ";
+                PreparedStatement stm_up = connection.prepareStatement(sql_up);
+                stm_up.setString(1, rd.getProduct().getId());
+                stm_up.setDouble(2, rd.getProduct().getQuantity());
+                stm_up.setString(3, rd.getProduct().getId());
+                stm_up.executeUpdate();
+            }
+            //delete in receipt Detail
+            String sql_rd = "DELETE FROM [ReceiptDetail]\n"
+                    + "      WHERE [ReceiptID] = ? ";
+            PreparedStatement stm_rd = connection.prepareStatement(sql_rd);
+            stm_rd.setInt(1, rid);
+            stm_rd.executeUpdate();
+            
+            //delete in Receipt
+            String sql_r = "DELETE FROM [Receipt]\n"
+                    + "      WHERE [ReceiptID] = ? ";
+            PreparedStatement stm_r = connection.prepareStatement(sql_r);
+            stm_r.setInt(1, rid);
+            stm_r.executeUpdate();
+            
+            //CHƯA CẬP NHẬT INSTOCK
+
+            connection.commit();
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(ReceiptDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            Logger.getLogger(ReceiptDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(ReceiptDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

@@ -81,3 +81,7 @@ function passToDeleteProduct(id) {
 function passToInactiveProduct(id) {
     document.getElementById("confirmInactive").href = "product/inactive?id=" + id;
 }
+
+function passToDeleteReceipt(id) {
+    document.getElementById("confirmDelete").href = "receipt/delete?id=" + id;
+}

@@ -40,6 +40,7 @@ public class DeliveryDetailController extends HttpServlet {
         
         DeliveryDBContext ddb = new DeliveryDBContext();
         Delivery delivery = ddb.getDelivery(Integer.parseInt(id));
+        delivery.setValue(ddb.getDeliveryValue(delivery.getId()));
         request.setAttribute("delivery", delivery);
         
         ArrayList<DeliveryDetail> deliveryDetails = ddb.getDeliveryDetails(Integer.parseInt(id));

@@ -3,24 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.activity;
+package controller.report;
 
-import dal.inventory.ReceiptDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.inventory.Receipt;
-import model.inventory.ReceiptDetail;
 
 /**
  *
  * @author quynm
  */
-public class ReceiptDetailController extends HttpServlet {
+public class ReportHomeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,20 +29,7 @@ public class ReceiptDetailController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-
-        String id = request.getParameter("id");
-
-        ReceiptDBContext rdb = new ReceiptDBContext();
-        Receipt receipt = rdb.getReceipt(Integer.parseInt(id));
-        receipt.setValue(rdb.getReceiptValue(receipt.getId()));
-        request.setAttribute("receipt", receipt);
-        
-        ArrayList<ReceiptDetail> receiptDetails = rdb.getReceiptDetails(Integer.parseInt(id));
-        request.setAttribute("receiptDetails", receiptDetails);
-        
-        request.getRequestDispatcher("../view/activity/detail-receipt.jsp").forward(request, response);
+        request.getRequestDispatcher("view/report/report.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -4,6 +4,7 @@
     Author     : quynm
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -41,10 +42,11 @@
                             <hr/>
 
                             <c:set value="${requestScope.receipt}" var="receipt"></c:set>
+                            <fmt:formatDate value="${receipt.date}" pattern="dd-MM-yyyy" var="date"/>
                                 <div class="content__receipt-info">
                                     <p class="content__receipt-info-text">No: ${receipt.id}</p>
                                 <p class="content__receipt-info-text">
-                                    Date: ${receipt.date}
+                                    Date: ${date}
                                     Time: ${receipt.time}
                                 </p>
                                 <p class="content__receipt-info-text">
@@ -68,21 +70,32 @@
                                         <th class="content__list-receipt-header">Comment</th>
                                     </tr>
                                     <c:forEach items="${requestScope.receiptDetails}" var="rd">
+                                        <fmt:formatNumber value="${rd.unitPrice}" type="currency" currencySymbol="" var="uPrice"/>
                                         <tr class="content__list-receipt-row">
                                             <td class="content__list-receipt-col">${rd.product.id}</td>
                                             <td class="content__list-receipt-col">${rd.product.name}</td>
                                             <td class="content__list-receipt-col">${rd.product.unit}</td>
-                                            <td class="content__list-receipt-col">${rd.unitPrice}</td>
+                                            <td class="content__list-receipt-col">${uPrice}</td>
                                             <td class="content__list-receipt-col">${rd.quantity}</td>
                                             <td class="content__list-receipt-col">${rd.mgf}</td>
                                             <td class="content__list-receipt-col">${rd.exp}</td>
                                             <td class="content__list-receipt-col">${rd.comment}</td>
                                         </tr>
                                     </c:forEach>
+                                    <fmt:formatNumber value="${receipt.value}" type="currency" currencySymbol=" " var="value"/>
+                                    <tr class="content__list-receipt-row">
+                                        <td class="content__list-receipt-col" colspan="3">Total</td>
+                                        <td class="content__list-receipt-col" colspan="2" style="text-align: right">
+                                            ${value}
+                                        </td>
+                                        <td class="content__list-receipt-col"></td>
+                                        <td class="content__list-receipt-col"></td>
+                                        <td class="content__list-receipt-col"></td>
+                                    </tr>
                                 </tbody>
                             </table>
                             <a class="button button--primary" href="receipt/create">Create new note</a>
-                            <a class="button button--green" href="#">View all received note</a>
+                            <a class="button button--green" href="report/receipt-list">View all received note</a>
                         </div>
                     </div>
                 </div>
