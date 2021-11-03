@@ -6,10 +6,13 @@
 package dal.inventory;
 
 import dal.DBContext;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.inventory.Category;
@@ -71,6 +74,149 @@ public class ProductDBContext extends DBContext {
                 Product pro = new Product(rs.getString(1), rs.getString(2), cat, sup,
                         rs.getString(5), rs.getDouble(6), rs.getDouble(7), rs.getString(9), rs.getBoolean(8));
                 pro.setUsed(rs.getInt("totalReceipt") > 0);
+                products.add(pro);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return products;
+    }
+
+    public ArrayList<Product> getProductsInOut(int cateID, int supID, Date from, Date to, int pageIndex, int pageSize) {
+        ArrayList<Product> products = new ArrayList<>();
+        try {
+            HashMap<Integer, String[]> params = new HashMap<>();
+            int countParam = 0;
+            //sub query get total receipt
+            String getTotalReceipt = "SELECT SUM(Quantity) \n"
+                    + "		FROM [ReceiptDetail] rd JOIN [Receipt] r ON rd.ReceiptID = r.ReceiptID\n"
+                    + "		WHERE [ProductID] = p.[ProductID] ";
+            if (from != null) {
+                getTotalReceipt += "AND [ReceiptDate] >= ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Date.class.getName();
+                param[1] = from + "";
+                params.put(countParam, param);
+            }
+            if (to != null) {
+                getTotalReceipt += "AND [ReceiptDate] <= ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Date.class.getName();
+                param[1] = to + "";
+                params.put(countParam, param);
+            }
+            //sub query get total receipt amount
+            String getTotalReceiptAmount = "SELECT SUM(Quantity * unitPrice) \n"
+                    + "		FROM [ReceiptDetail] rd JOIN [Receipt] r ON rd.ReceiptID = r.ReceiptID\n"
+                    + "		WHERE [ProductID] = p.[ProductID] ";
+            if (from != null) {
+                getTotalReceiptAmount += "AND [ReceiptDate] >= ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Date.class.getName();
+                param[1] = from + "";
+                params.put(countParam, param);
+            }
+            if (to != null) {
+                getTotalReceiptAmount += "AND [ReceiptDate] <= ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Date.class.getName();
+                param[1] = to + "";
+                params.put(countParam, param);
+            }
+
+            //sub query get total delivery
+            String getTotalDelivery = "SELECT SUM(dd.Quantity)\n"
+                    + "FROM [DeliveryDetail] dd INNER JOIN [Delivery] d ON dd.DeliveryID = d.DeliveryID\n"
+                    + "WHERE dd.[ProductID] = p.[ProductID] ";
+            if (from != null) {
+                getTotalDelivery += "AND [DeliveryDate] >= ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Date.class.getName();
+                param[1] = from + "";
+                params.put(countParam, param);
+            }
+            if (to != null) {
+                getTotalDelivery += "AND [DeliveryDate] <= ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Date.class.getName();
+                param[1] = to + "";
+                params.put(countParam, param);
+            }
+
+            //subquery table to pagging
+            String table_rowNum = "SELECT ROW_NUMBER() OVER (ORDER BY [ProductID] ASC) as rownum, * \n"
+                    + "         FROM [Products] WHERE 1=1 ";
+            if (cateID != 0) {
+                table_rowNum += " AND [CategoryID] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Integer.class.getName();
+                param[1] = cateID + "";
+                params.put(countParam, param);
+            }
+            if (supID != 0) {
+                table_rowNum += " AND [SupplierID] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Integer.class.getName();
+                param[1] = supID + "";
+                params.put(countParam, param);
+            }
+
+            String sql = "SELECT [ProductID]\n"
+                    + "      ,[ProductName]\n"
+                    + "      ,[CategoryID]\n"
+                    + "      ,[SupplierID]\n"
+                    + "      ,[unit]\n"
+                    + "      ,[Quantity]\n"
+                    + "      ,[unitPrice]\n"
+                    + "      ,[isActive]\n"
+                    + "      ,[Comment]\n"
+                    + "      ,( " + getTotalReceipt + ") as TotalReceipt "
+                    + "      ,( " + getTotalReceiptAmount + ") as TotalReceiptAmount "
+                    + "      ,( " + getTotalDelivery + ") as TotalDelivery "
+                    + "  FROM "
+                    + "  ( " + table_rowNum + " ) as p "
+                    + "  WHERE rownum >= (? - 1)*? + 1 AND rownum <= ? * ? ";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            //Assign value for param
+            for (Map.Entry<Integer, String[]> entry : params.entrySet()) {
+                Integer key = entry.getKey();
+                String[] value = entry.getValue();
+
+                if (value[0].equals(Integer.class.getName())) {
+                    stm.setInt(key, Integer.parseInt(value[1]));
+                }
+                if (value[0].equals(Date.class.getName())) {
+                    stm.setDate(key, Date.valueOf(value[1]));
+                }
+            }
+            stm.setInt(params.size() + 1, pageIndex);
+            stm.setInt(params.size() + 2, pageSize);
+            stm.setInt(params.size() + 3, pageIndex);
+            stm.setInt(params.size() + 4, pageSize);
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                CategoryDBContext cdb = new CategoryDBContext();
+                Category cat = cdb.getCategory(rs.getInt(3));
+
+                SupplierDBContext sdb = new SupplierDBContext();
+                Supplier sup = sdb.getSupplier(rs.getInt(4));
+
+                Product pro = new Product(rs.getString(1), rs.getString(2), cat, sup,
+                        rs.getString(5), rs.getDouble(6), rs.getDouble(7), rs.getString(9), rs.getBoolean(8));
+                pro.setTotalReceived(rs.getDouble("TotalReceipt"));
+                pro.setTotalReceivedAmount(rs.getDouble("TotalReceiptAmount"));
+                pro.setTotalDelivered(rs.getDouble("TotalDelivery"));
+                pro.setTotalDeliveredAmount(pro.getTotalDelivered() * pro.getUnitPrice());
                 products.add(pro);
             }
         } catch (SQLException ex) {

@@ -25,21 +25,37 @@
                                 <div class="grid">
                                     <div class="row">
                                         <div class="content-home__top-btn col l-3">
-                                            <a href="product/list" class="content-home__top-link content-home__top-link--green"> Inventory </a>
+                                            <a class="content__home-link" href="product/list">
+                                                <img class="content__report-link-icon" src="images/inventory-icon.png" alt="receipt icon"/>
+                                                <h5 class="content__report-link-title">INVENTORY</h5>
+                                                <p class="content__report-link-desc">View all product in warehouse</p>
+                                            </a>
                                         </div>
                                         <div class="content-home__top-btn col l-3">
-                                            <a href="delivery/create" class="content-home__top-link content-home__top-link--red"> Goods Receipt - Issue </a>
+                                            <a class="content__home-link" href="delivery/create">
+                                                <img class="content__report-link-icon" src="images/inout-icon.png" alt="receipt icon"/>
+                                                <h5 class="content__report-link-title">STOCK IN - OUT</h5>
+                                                <p class="content__report-link-desc">Create Goods Receipt - Delivery Note</p>
+                                            </a>
                                         </div>
                                         <div class="content-home__top-btn col l-3">
-                                            <a href="report" class="content-home__top-link content-home__top-link--orange"> Report </a>
+                                            <a class="content__home-link" href="report">
+                                                <img class="content__report-link-icon" src="images/report-home-icon.png" alt="receipt icon"/>
+                                                <h5 class="content__report-link-title">REPORT</h5>
+                                                <p class="content__report-link-desc">Create report</p>
+                                            </a>
                                         </div>
                                         <div class="content-home__top-btn col l-3">
-                                            <a href="account/list" class="content-home__top-link content-home__top-link--blue"> Account management </a>
+                                            <a class="content__home-link" href="account/list">
+                                                <img class="content__report-link-icon" src="images/account-icon.png" alt="receipt icon"/>
+                                                <h5 class="content__report-link-title">ACCOUNT</h5>
+                                                <p class="content__report-link-desc">Manage accounts</p>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="content-home__banner col col-l-12">
-                                            <img src="images/banner_home.jpg" alt="banner home" class="content-home__banner-img" />
+                                            <img src="images/banner_home.jpg" alt="banner home" class="content__home-banner-img" />
                                         </div>
                                     </div>
                                 </div>
@@ -49,6 +65,12 @@
                 </div>
             </div>
             <jsp:include page="template/footer.jsp" flush="true"/>
+            <div class="copyright">
+                Icons made by 
+                <a href="https://www.freepik.com" title="Freepik">Freepik</a>
+                from 
+                <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+            </div>
         </div>
     </body>
 </html>

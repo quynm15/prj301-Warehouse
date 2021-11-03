@@ -39,7 +39,7 @@
                                             </a>
                                         </div>
                                         <div class="col l-2-10">
-                                            <a class="content__report-link" href="#">
+                                            <a class="content__report-link" href="report/inout">
                                                 <img class="content__report-link-icon" src="images/report-icon.png" alt="report icon"/>
                                                 <h5 class="content__report-link-title">IN - OUT</h5>
                                                 <p class="content__report-link-desc">Input - Output - Inventory Report</p>

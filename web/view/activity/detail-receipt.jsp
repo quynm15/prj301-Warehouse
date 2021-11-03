@@ -84,7 +84,7 @@
                                     </c:forEach>
                                     <fmt:formatNumber value="${receipt.value}" type="currency" currencySymbol=" " var="value"/>
                                     <tr class="content__list-receipt-row">
-                                        <td class="content__list-receipt-col" colspan="3">Total</td>
+                                        <td class="content__list-receipt-col" colspan="3">Total value</td>
                                         <td class="content__list-receipt-col" colspan="2" style="text-align: right">
                                             ${value}
                                         </td>

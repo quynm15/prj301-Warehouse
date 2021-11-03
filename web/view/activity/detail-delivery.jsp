@@ -79,7 +79,7 @@
                                     </c:forEach>
                                     <fmt:formatNumber value="${delivery.value}" type="currency" currencySymbol=" " var="value"/>
                                     <tr class="content__list-delivery-row">
-                                        <td class="content__list-delivery-col" colspan="3">Total</td>
+                                        <td class="content__list-delivery-col" colspan="3">Total value:</td>
                                         <td class="content__list-delivery-col" colspan="2" style="text-align: right">
                                             ${value}
                                         </td>

@@ -20,6 +20,10 @@ public class Product {
     private String comment;
     private boolean active;
     private boolean used;
+    private double totalReceived;
+    private double totalReceivedAmount;
+    private double totalDelivered;
+    private double totalDeliveredAmount;
 
     public Product() {
     }
@@ -115,6 +119,39 @@ public class Product {
     public void setUsed(boolean used) {
         this.used = used;
     }
+
+    public double getTotalReceived() {
+        return totalReceived;
+    }
+
+    public void setTotalReceived(double totalReceived) {
+        this.totalReceived = totalReceived;
+    }
+
+    public double getTotalReceivedAmount() {
+        return totalReceivedAmount;
+    }
+
+    public void setTotalReceivedAmount(double totalReceivedAmount) {
+        this.totalReceivedAmount = totalReceivedAmount;
+    }
+
+    public double getTotalDelivered() {
+        return totalDelivered;
+    }
+
+    public void setTotalDelivered(double totalDelivered) {
+        this.totalDelivered = totalDelivered;
+    }
+
+    public double getTotalDeliveredAmount() {
+        return totalDeliveredAmount;
+    }
+
+    public void setTotalDeliveredAmount(double totalDeliveredAmount) {
+        this.totalDeliveredAmount = totalDeliveredAmount;
+    }
+
     
     
 }
