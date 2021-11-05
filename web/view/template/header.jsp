@@ -19,7 +19,7 @@
                         <a class="header__navbar-link" href="home">HOME</a>
                     </li>
                     <li class="header__navbar-item">
-                        <a class="header__navbar-link" href="#">ABOUT</a>
+                        <a class="header__navbar-link" href="about">ABOUT</a>
                     </li>
                     <!-- User -->
                     <c:if test="${empty sessionScope.account}">

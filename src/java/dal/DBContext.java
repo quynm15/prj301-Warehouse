@@ -23,6 +23,9 @@ public class DBContext {
             String user = "sa";
             String pass = "12345678";
             String url = "jdbc:sqlserver://DESKTOP-O20GT3P:1433;databaseName=WarehouseDB";
+//            String user = "william15_SQLLogin_1";
+//            String pass = "wgt28kwk3x";
+//            String url = "jdbc:sqlserver://MQWarehouse.mssql.somee.com:1433;databaseName=MQWarehouse";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connection = DriverManager.getConnection(url, user, pass);
         } catch (ClassNotFoundException | SQLException ex) {

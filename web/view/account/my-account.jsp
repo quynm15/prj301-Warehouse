@@ -94,7 +94,7 @@
                                                     <input type="hidden" name="permission" value="${feature.id}"/>
                                                 </c:if>
                                             </c:forEach>
-                                            ${feature.name}<br/>
+                                            <label> ${feature.name} </label> <br/>
                                         </c:forEach>
                                     </div>
                                 </div>

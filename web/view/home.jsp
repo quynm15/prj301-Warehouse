@@ -26,30 +26,30 @@
                                     <div class="row">
                                         <div class="content-home__top-btn col l-3">
                                             <a class="content__home-link" href="product/list">
-                                                <img class="content__report-link-icon" src="images/inventory-icon.png" alt="receipt icon"/>
-                                                <h5 class="content__report-link-title">INVENTORY</h5>
-                                                <p class="content__report-link-desc">View all product in warehouse</p>
+                                                <img class="content__home-link-icon" src="images/inventory-icon.png" alt="receipt icon"/>
+                                                <h5 class="content__home-link-title">INVENTORY</h5>
+                                                <p class="content__home-link-desc">View all product in warehouse</p>
                                             </a>
                                         </div>
                                         <div class="content-home__top-btn col l-3">
                                             <a class="content__home-link" href="delivery/create">
-                                                <img class="content__report-link-icon" src="images/inout-icon.png" alt="receipt icon"/>
-                                                <h5 class="content__report-link-title">STOCK IN - OUT</h5>
-                                                <p class="content__report-link-desc">Create Goods Receipt - Delivery Note</p>
+                                                <img class="content__home-link-icon" src="images/inout-icon.png" alt="receipt icon"/>
+                                                <h5 class="content__home-link-title">STOCK IN - OUT</h5>
+                                                <p class="content__home-link-desc">Create Goods Receipt - Delivery Note</p>
                                             </a>
                                         </div>
                                         <div class="content-home__top-btn col l-3">
                                             <a class="content__home-link" href="report">
-                                                <img class="content__report-link-icon" src="images/report-home-icon.png" alt="receipt icon"/>
-                                                <h5 class="content__report-link-title">REPORT</h5>
-                                                <p class="content__report-link-desc">Create report</p>
+                                                <img class="content__home-link-icon" src="images/report-home-icon.png" alt="receipt icon"/>
+                                                <h5 class="content__home-link-title">REPORT</h5>
+                                                <p class="content__home-link-desc">Create report</p>
                                             </a>
                                         </div>
                                         <div class="content-home__top-btn col l-3">
                                             <a class="content__home-link" href="account/list">
-                                                <img class="content__report-link-icon" src="images/account-icon.png" alt="receipt icon"/>
-                                                <h5 class="content__report-link-title">ACCOUNT</h5>
-                                                <p class="content__report-link-desc">Manage accounts</p>
+                                                <img class="content__home-link-icon" src="images/account-icon.png" alt="receipt icon"/>
+                                                <h5 class="content__home-link-title">ACCOUNT</h5>
+                                                <p class="content__home-link-desc">Manage accounts</p>
                                             </a>
                                         </div>
                                     </div>

@@ -310,6 +310,9 @@ select:focus{
 .content__account-detail-table{
     max-width: 50%
 }
+.content__account-detail-table tbody{
+    display: block;
+}
 .content__account-detail-title,
 .content__account-detail-data{
     padding: 5px 0;
@@ -376,21 +379,41 @@ select:focus{
 }
 
 /*List category*/
-.content__list-category-table{
+.content__list-category-table,
+.content__list-supplier-table,
+.content__list-receipt-report-table{
     width: 100%;
     table-layout:fixed;
 }
-.content__list-category-row{
+.content__list-category-row,
+.content__list-supplier-row,
+.content__list-product-row,
+.content__list-receipt-row,
+.content__list-delivery-row,
+.content__list-receipt-report-row,
+.content__list-inout-row{
     width: 100%;
     border-bottom: 2px solid #ccc;
 }
-.content__list-category-header{
+.content__list-category-header,
+.content__list-supplier-header,
+.content__list-product-header,
+.content__list-receipt-header,
+.content__list-delivery-header,
+.content__list-receipt-report-header,
+.content__list-inout-header{
     text-align: left;
     font-weight: 700;
     padding: 10px 5px;
     border-bottom: 2px solid var(--primary-color);
 }
-.content__list-category-col{
+.content__list-category-col,
+.content__list-supplier-col,
+.content__list-product-col,
+.content__list-receipt-col,
+.content__list-delivery-col,
+.content__list-receipt-report-col,
+.content__list-inout-col{
     padding: 10px 5px;
     border-bottom: 2px solid #ccc;
     white-space: nowrap;
@@ -409,7 +432,13 @@ select:focus{
 .content__list-category-col:nth-child(3){
     width: 55%;
 }
-.content__list-category-link{
+.content__list-category-link,
+.content__list-supplier-link,
+.content__list-product-link,
+.content__list-receipt-link,
+.content__list-delivery-link,
+.content__list-receipt-report-link,
+.content__list-inout-link{
     text-decoration: none;
     color: orangered;
     display: block;
@@ -421,27 +450,6 @@ select:focus{
 }
 
 /*List supplier*/
-.content__list-supplier-table{
-    width: 100%;
-    table-layout:fixed;
-}
-.content__list-supplier-row{
-    width: 100%;
-    border-bottom: 2px solid #ccc;
-}
-.content__list-supplier-header{
-    text-align: left;
-    font-weight: 700;
-    padding: 10px 5px;
-    border-bottom: 2px solid var(--primary-color);
-}
-.content__list-supplier-col{
-    padding: 10px 5px;
-    border-bottom: 2px solid #ccc;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 .content__list-supplier-header:nth-child(1),
 .content__list-supplier-col:nth-child(1){
     width: 30%;
@@ -462,17 +470,6 @@ select:focus{
 .content__list-supplier-col:nth-child(5){
     width: 25%;
 }
-.content__list-supplier-link{
-    text-decoration: none;
-    color: orangered;
-    display: block;
-    width: 100%;
-    cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 /*List product*/
 .content__product-function{
     display: flex;
@@ -487,27 +484,13 @@ select:focus{
 .content__product-function-title{
     padding-right: 10px;
 }
-.content__list-product-table{
+.content__list-product-table,
+.content__list-receipt-table,
+.content__list-delivery-table,
+.content__list-inout-table{
     width: 100%;
     table-layout:fixed;
     align-items: center;
-}
-.content__list-product-row{
-    width: 100%;
-    border-bottom: 2px solid #ccc;
-}
-.content__list-product-header{
-    text-align: left;
-    font-weight: 700;
-    padding: 10px 5px;
-    border-bottom: 2px solid var(--primary-color);
-}
-.content__list-product-col{
-    padding: 10px 5px;
-    border-bottom: 2px solid #ccc;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 .content__list-product-header:nth-child(1),
 .content__list-product-col:nth-child(1){
@@ -533,40 +516,8 @@ select:focus{
 .content__list-product-col:nth-child(6){
     width: 10%;
 }
-.content__list-product-link{
-    text-decoration: none;
-    color: orangered;
-    display: block;
-    width: 100%;
-    cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 
 /*List receipt*/
-.content__list-receipt-table{
-    width: 100%;
-    table-layout:fixed;
-    align-items: center;
-}
-.content__list-receipt-row{
-    width: 100%;
-    border-bottom: 2px solid #ccc;
-}
-.content__list-receipt-header{
-    text-align: left;
-    font-weight: 700;
-    padding: 10px 5px;
-    border-bottom: 2px solid var(--primary-color);
-}
-.content__list-receipt-col{
-    padding: 5px 5px;
-    border-bottom: 2px solid #ccc;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 .content__list-receipt-header:nth-child(1),
 .content__list-receipt-col:nth-child(1){
     width: 8%;
@@ -607,40 +558,8 @@ input[type="date"].content__list-receipt-col-input{
     padding: 0 5px;
     border: none;
 }
-.content__list-receipt-link{
-    text-decoration: none;
-    color: orangered;
-    display: block;
-    width: 100%;
-    cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 
 /*List delivery*/
-.content__list-delivery-table{
-    width: 100%;
-    table-layout:fixed;
-    align-items: center;
-}
-.content__list-delivery-row{
-    width: 100%;
-    border-bottom: 2px solid #ccc;
-}
-.content__list-delivery-header{
-    text-align: left;
-    font-weight: 700;
-    padding: 10px 5px;
-    border-bottom: 2px solid var(--primary-color);
-}
-.content__list-delivery-col{
-    padding: 5px 5px;
-    border-bottom: 2px solid #ccc;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 .content__list-delivery-header:nth-child(1),
 .content__list-delivery-col:nth-child(1){
     width: 10%;
@@ -672,16 +591,6 @@ input[type="date"].content__list-delivery-col-input{
     width: 100%;
     padding: 0 5px;
     border: none;
-}
-.content__list-delivery-link{
-    text-decoration: none;
-    color: orangered;
-    display: block;
-    width: 100%;
-    cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 /*Report/list*/
@@ -723,27 +632,6 @@ input[type="date"].content__list-delivery-col-input{
 }
 
 /*List receipt-report*/
-.content__list-receipt-report-table{
-    width: 100%;
-    table-layout:fixed;
-}
-.content__list-receipt-report-row{
-    width: 100%;
-    border-bottom: 2px solid #ccc;
-}
-.content__list-receipt-report-header{
-    text-align: left;
-    font-weight: 700;
-    padding: 10px 5px;
-    border-bottom: 2px solid var(--primary-color);
-}
-.content__list-receipt-report-col{
-    padding: 10px 5px;
-    border-bottom: 2px solid #ccc;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 .content__list-receipt-report-header:nth-child(1),
 .content__list-receipt-report-col:nth-child(1){
     width: 10%;
@@ -767,16 +655,6 @@ input[type="date"].content__list-delivery-col-input{
 .content__list-receipt-report-col:nth-child(5){
     text-align: right;
 }
-.content__list-receipt-report-link{
-    text-decoration: none;
-    color: orangered;
-    display: block;
-    width: 100%;
-    cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 
 /*Listinoutt*/
 .content__inout-function{
@@ -797,28 +675,6 @@ input[type="date"].content__list-delivery-col-input{
 }
 .content__inout-total-text{
     margin: 0 20px 0 0;
-}
-.content__list-inout-table{
-    width: 100%;
-    table-layout:fixed;
-    align-items: center;
-}
-.content__list-inout-row{
-    width: 100%;
-    border-bottom: 2px solid #ccc;
-}
-.content__list-inout-header{
-    text-align: left;
-    font-weight: 700;
-    padding: 10px 5px;
-    border-bottom: 2px solid var(--primary-color);
-}
-.content__list-inout-col{
-    padding: 10px 5px;
-    border-bottom: 2px solid #ccc;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 .content__list-inout-header:nth-child(1),
 .content__list-inout-col:nth-child(1){
@@ -862,17 +718,14 @@ input[type="date"].content__list-delivery-col-input{
     width: 10%;
     text-align:right;
 }
-.content__list-inout-link{
-    text-decoration: none;
-    color: orangered;
-    display: block;
-    width: 100%;
-    cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 
+/*About*/
+.content-about {
+    padding-top: 80px;
+    font-family: "Ubuntu", sans-serif;
+    margin-left: 50px;
+    min-height: 80vh;
+}
 
 /* Footer */
 .footer {
