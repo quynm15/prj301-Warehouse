@@ -24,7 +24,7 @@ public class ReceiptDetail {
     public ReceiptDetail() {
     }
 
-    public ReceiptDetail(int receiptID, Product product, double unitPrice, double inStock, double quantity, Date mgf, Date exp, String comment) {
+    public ReceiptDetail(int receiptID, Product product, double unitPrice, double quantity, double inStock, Date mgf, Date exp, String comment) {
         this.receiptID = receiptID;
         this.product = product;
         this.unitPrice = unitPrice;
