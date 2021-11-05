@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.inventory.Category;
 import model.inventory.Product;
+import model.inventory.ProductExpirationReport;
 import model.inventory.Supplier;
 
 /**
@@ -225,6 +226,241 @@ public class ProductDBContext extends DBContext {
         return products;
     }
 
+    public double getTotalAllReceivedAmount(int cateID, int supID, Date from, Date to) {
+        try {
+            HashMap<Integer, String[]> params = new HashMap<>();
+            int countParam = 0;
+            //sub query get total receipt amount
+            String sql = "SELECT SUM(rd.Quantity * rd.unitPrice) as TotalReceiptAmount \n"
+                    + "		FROM [ReceiptDetail] rd JOIN [Receipt] r ON rd.ReceiptID = r.ReceiptID"
+                    + "                                 JOIN [Products] p ON rd.[ProductID] = p.[ProductID]\n"
+                    + "		WHERE 1=1 ";
+            if (from != null) {
+                sql += "AND [ReceiptDate] >= ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Date.class.getName();
+                param[1] = from + "";
+                params.put(countParam, param);
+            }
+            if (to != null) {
+                sql += "AND [ReceiptDate] <= ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Date.class.getName();
+                param[1] = to + "";
+                params.put(countParam, param);
+            }
+            if (cateID != 0) {
+                sql += "AND p.[CategoryID] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Integer.class.getName();
+                param[1] = cateID + "";
+                params.put(countParam, param);
+            }
+            if (supID != 0) {
+                sql += "AND p.[SupplierID] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Integer.class.getName();
+                param[1] = supID + "";
+                params.put(countParam, param);
+            }
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            //Assign value for param
+            for (Map.Entry<Integer, String[]> entry : params.entrySet()) {
+                Integer key = entry.getKey();
+                String[] value = entry.getValue();
+
+                if (value[0].equals(Integer.class.getName())) {
+                    stm.setInt(key, Integer.parseInt(value[1]));
+                }
+                if (value[0].equals(Date.class.getName())) {
+                    stm.setDate(key, Date.valueOf(value[1]));
+                }
+            }
+
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getDouble("TotalReceiptAmount");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public double getTotalAllDeliveredAmount(int cateID, int supID, Date from, Date to) {
+        try {
+            HashMap<Integer, String[]> params = new HashMap<>();
+            int countParam = 0;
+            //sub query get total receipt amount
+            String sql = "SELECT SUM(dd.Quantity * p.unitPrice) as TotalDeliveryAmount \n"
+                    + "		FROM [DeliveryDetail] dd JOIN [Delivery] d ON dd.DeliveryID = d.DeliveryID"
+                    + "                                 JOIN [Products] p ON dd.[ProductID] = p.[ProductID]\n"
+                    + "		WHERE 1=1 ";
+            if (from != null) {
+                sql += "AND [ReceiptDate] >= ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Date.class.getName();
+                param[1] = from + "";
+                params.put(countParam, param);
+            }
+            if (to != null) {
+                sql += "AND [ReceiptDate] <= ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Date.class.getName();
+                param[1] = to + "";
+                params.put(countParam, param);
+            }
+            if (cateID != 0) {
+                sql += "AND p.[CategoryID] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Integer.class.getName();
+                param[1] = cateID + "";
+                params.put(countParam, param);
+            }
+            if (supID != 0) {
+                sql += "AND p.[SupplierID] = ? ";
+                countParam++;
+                String[] param = new String[2];
+                param[0] = Integer.class.getName();
+                param[1] = supID + "";
+                params.put(countParam, param);
+            }
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            //Assign value for param
+            for (Map.Entry<Integer, String[]> entry : params.entrySet()) {
+                Integer key = entry.getKey();
+                String[] value = entry.getValue();
+
+                if (value[0].equals(Integer.class.getName())) {
+                    stm.setInt(key, Integer.parseInt(value[1]));
+                }
+                if (value[0].equals(Date.class.getName())) {
+                    stm.setDate(key, Date.valueOf(value[1]));
+                }
+            }
+
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getDouble("TotalDeliveryAmount");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public ArrayList<ProductExpirationReport> getExpirationReports(int pageIndex, int pageSize) {
+        ArrayList<ProductExpirationReport> products = new ArrayList<>();
+        try {
+            String sql = "SELECT [ProductID]\n"
+                    + "         ,[ProductName]\n"
+                    + "         ,[unit]\n"
+                    + "         ,[unitPrice]\n"
+                    + "         ,[inStock]\n"
+                    + "         ,[ExpDate]\n"
+                    + "         ,[ReceiptDate]\n"
+                    + "         ,[Datediff]\n"
+                    + "  FROM (SELECT ROW_NUMBER() OVER(ORDER BY p.[ProductID]) as rownum\n"
+                    + "			  ,p.[ProductID]\n"
+                    + "			  ,[ProductName]\n"
+                    + "                   ,[unit]\n"
+                    + "			  ,rd.[unitPrice]\n"
+                    + "			  ,[inStock]\n"
+                    + "			  ,[ExpDate]\n"
+                    + "			  ,[ReceiptDate]\n"
+                    + "			  ,(SELECT DATEDIFF(DAY,GETDATE(),[ExpDate])) as [Datediff]\n"
+                    + "		FROM [ReceiptDetail] rd INNER JOIN [Products] p\n"
+                    + "			ON rd.ProductID = p.ProductID\n"
+                    + "					INNER JOIN [Receipt] r\n"
+                    + "			ON rd.ReceiptID = r.ReceiptID\n"
+                    + "		WHERE DATEDIFF(DAY,GETDATE(),[ExpDate]) <= 10\n"
+                    + "                 AND [inStock] > 0) as pex\n"
+                    + "  WHERE rownum >= (?-1)*?+1 AND rownum <= ?*?";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, pageIndex);
+            stm.setInt(2, pageSize);
+            stm.setInt(3, pageIndex);
+            stm.setInt(4, pageSize);
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                ProductExpirationReport pro = new ProductExpirationReport();
+                pro.setId(rs.getString(1));
+                pro.setName(rs.getString(2));
+                pro.setUnit(rs.getString(3));
+                pro.setUnitPrice(rs.getDouble(4));
+                pro.setInStock(rs.getDouble(5));
+                pro.setExpDate(rs.getDate(6));
+                pro.setReceiptDate(rs.getDate(7));
+                pro.setDateDiff(rs.getInt(8));
+                products.add(pro);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return products;
+    }
+
+    public ArrayList<Product> getOutStockProducts(int pageIndex, int pageSize) {
+        ArrayList<Product> products = new ArrayList<>();
+        try {
+            String sql = "SELECT ProductID\n"
+                    + "		, ProductName\n"
+                    + "		, CategoryID\n"
+                    + "		, SupplierID\n"
+                    + "		, unit\n"
+                    + "		, Quantity\n"
+                    + "		, unitPrice\n"
+                    + "		, isActive\n"
+                    + "		, Comment\n"
+                    + "   FROM (SELECT ROW_NUMBER() OVER(ORDER BY [ProductID]) as rownum\n"
+                    + "			, ProductID\n"
+                    + "			, ProductName\n"
+                    + "			, CategoryID\n"
+                    + "			, SupplierID\n"
+                    + "			, unit\n"
+                    + "			, Quantity\n"
+                    + "			, unitPrice\n"
+                    + "			, isActive\n"
+                    + "			, Comment\n"
+                    + "		FROM Products\n"
+                    + "		WHERE Quantity < 10) as p\n"
+                    + "  WHERE rownum >= (?-1)*?+1 AND rownum <= ?*?";
+
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, pageIndex);
+            stm.setInt(2, pageSize);
+            stm.setInt(3, pageIndex);
+            stm.setInt(4, pageSize);
+
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                CategoryDBContext cdb = new CategoryDBContext();
+                Category cat = cdb.getCategory(rs.getInt(3));
+
+                SupplierDBContext sdb = new SupplierDBContext();
+                Supplier sup = sdb.getSupplier(rs.getInt(4));
+
+                Product pro = new Product(rs.getString(1), rs.getString(2), cat, sup,
+                        rs.getString(5), rs.getDouble(6), rs.getDouble(7), rs.getString(9), rs.getBoolean(8));
+                products.add(pro);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return products;
+    }
+
     public Product getProduct(String id) {
         try {
             String sql = "SELECT [ProductID]\n"
@@ -363,6 +599,40 @@ public class ProductDBContext extends DBContext {
             for (int i = 0; i < params.size(); i++) {
                 stm.setInt(i + 1, params.get(i));
             }
+
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public int countExpirationProducts() {
+        try {
+            String sql = "SELECT COUNT (*) as total\n"
+                    + "	  FROM [ReceiptDetail] rd\n"
+                    + "	  WHERE DATEDIFF(DAY,GETDATE(),[ExpDate]) <= 10 \n"
+                    + "		AND [inStock] > 0";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public int countProductsOutStock() {
+        try {
+            String sql = "SELECT COUNT(*) as total \n"
+                    + "  FROM [Products] "
+                    + "  WHERE Quantity < 10 ";
+            PreparedStatement stm = connection.prepareStatement(sql);
 
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {

@@ -38,10 +38,13 @@
             <p class="content__nav-title">Report</p>
             <ul class="content__nav-list">
                 <li class="content__nav-item">
-                    <a href="#" class="content__nav-link">Input - Output - Inventory Report</a>
+                    <a href="report" class="content__nav-link">Create a Report</a>
                 </li>
                 <li class="content__nav-item">
-                    <a href="#" class="content__nav-link">Out of date Report</a>
+                    <a href="report/receipt-list" class="content__nav-link">Received Report</a>
+                </li>
+                <li class="content__nav-item">
+                    <a href="report/delivery-list" class="content__nav-link">Delivery Report</a>
                 </li>
             </ul>
 

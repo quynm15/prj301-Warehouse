@@ -46,14 +46,14 @@
                                             </a>
                                         </div>
                                         <div class="col l-2-10">
-                                            <a class="content__report-link" href="#">
+                                            <a class="content__report-link" href="report/expiration">
                                                 <img class="content__report-link-icon" src="images/out-of-date-icon.png" alt="out of date icon"/>
                                                 <h5 class="content__report-link-title">EXPIRATION</h5>
                                                 <p class="content__report-link-desc">Goods that are about to expire</p>
                                             </a>
                                         </div>
                                         <div class="col l-2-10">
-                                            <a class="content__report-link" href="#">
+                                            <a class="content__report-link" href="report/outstock">
                                                 <img class="content__report-link-icon" src="images/out-of-stock-icon.png" alt="out of stock icon"/>
                                                 <h5 class="content__report-link-title">OUT OF STOCK</h5>
                                                 <p class="content__report-link-desc">Goods that are about to running out of stock</p>
