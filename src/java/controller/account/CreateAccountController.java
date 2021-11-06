@@ -69,7 +69,7 @@ public class CreateAccountController extends HttpServlet {
         String email = request.getParameter("email");
         String status = request.getParameter("status") == null ? "" : request.getParameter("status");
         String[] pers = request.getParameterValues("permission");
-        
+
         Account account = new Account();
         account.setUsername(username);
         account.setFullName(fullname.isEmpty() ? null : fullname);
@@ -78,6 +78,14 @@ public class CreateAccountController extends HttpServlet {
         account.setPhone(phone.isEmpty() ? null : phone);
         account.setEmail(email.isEmpty() ? null : email);
         account.setIsActive(status.equals("active"));
+
+        //new java.util.Date() is get current Date
+        if (account.getDob().after(new java.util.Date())) {
+            request.setAttribute("errorDob", "Date of birth is invalid.");
+            request.setAttribute("account", account);
+            doGet(request, response);
+            return;
+        }
 
         FeatureDBContext fdb = new FeatureDBContext();
         if (pers != null) {
@@ -95,6 +103,7 @@ public class CreateAccountController extends HttpServlet {
                 request.setAttribute("errorUsername", "Username has been already used.");
                 request.setAttribute("account", account);
                 doGet(request, response);
+                return;
             }
         }
         //if not, insert to DB

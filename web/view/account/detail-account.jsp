@@ -44,6 +44,9 @@
                                             <td class="content__account-detail-title">Date of birth: </td>
                                             <td class="content__account-detail-data">
                                                 <input type="date" name="dob" value="${requestScope.account.dob}"/>
+                                                <p class="errorMsg">
+                                                    ${requestScope.errorDob eq null ? "" : requestScope.errorDob}
+                                                </p>
                                             </td>
                                         </tr>
                                         <tr class="content__account-detail-row">
@@ -94,7 +97,12 @@
                                         </tr>
                                     </table>
                                     <div class="content__account-detail-permission">
-                                        <p class="content__account-detail-title">Permissions: </p>
+                                        <p>
+                                            <strong>Permissions:</strong> &nbsp;&nbsp;
+                                            <input type="checkbox" id="checkAll" onclick="toggleAllPermissions(this)"
+                                                   ${requestScope.account.username eq "admin" ? "disabled checked":""}/> 
+                                            <label for="checkAll"> Select all</label>
+                                        </p>
                                         <c:forEach items="${requestScope.features}" var="feature">
                                             <input type="checkbox" name="permission" id="f${feature.id}"
                                                    <c:forEach items="${requestScope.account.features}" var="af">

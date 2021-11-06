@@ -80,6 +80,14 @@ public class UpdateAccountController extends HttpServlet {
         account.setEmail(email.isEmpty() ? null : email);
         account.setIsActive(status.equals("active"));
         
+        //new java.util.Date() is get current Date
+        if (account.getDob().after(new java.util.Date())) {
+            request.setAttribute("errorDob", "Date of birth is invalid.");
+            request.setAttribute("account", account);
+            request.getRequestDispatcher("detail?username="+username).forward(request, response);
+            return;
+        }
+        
         FeatureDBContext fdb = new FeatureDBContext();
         if (pers != null) {
             for (String per : pers) {

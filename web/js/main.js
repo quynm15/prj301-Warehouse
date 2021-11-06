@@ -7,6 +7,14 @@ function submitForm(form) {
     document.getElementById(form).submit();
 }
 
+function toggleAllPermissions(allCheckbox) {
+    var checkboxes = document.getElementsByName('permission');
+    for (var i = 0; i < checkboxes.length; i++) {
+        console.log(checkboxes);
+        checkboxes[i].checked = allCheckbox.checked;
+    }
+}
+
 function createPaggerProduct(div, pageIndex, gap, totalPages) {
     var container = document.getElementById(div);
     var prevPage = pageIndex - 1;
