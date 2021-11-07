@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.account.Account;
 import model.account.Feature;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -27,22 +28,23 @@ public class AccountDBContext extends DBContext {
                     + "          [Phone],[Email],[isActive],f.[featureID],[url],[featureName] \n"
                     + "  FROM [Accounts] a LEFT JOIN [Account_Feature] af ON a.Username = af.Username\n"
                     + "			LEFT JOIN [Feature] f ON af.FeatureID = f.featureID\n"
-                    + "  WHERE a.[Username] = ? AND [Password] = ?";
+                    + "  WHERE a.[Username] = ? ";
             PreparedStatement stm = connection.prepareStatement(sql);
 
             stm.setString(1, username);
-            stm.setString(2, password);
 
             ResultSet rs = stm.executeQuery();
             Account account = null;
             while (rs.next()) {
-                if (account == null) {
-                    account = new Account(username, password, rs.getString("FullName"),
-                            rs.getDate("Dob"), rs.getString("Address"), rs.getString("Phone"),
-                            rs.getString("Email"), rs.getBoolean("isActive"));
-                }
-                if (rs.getInt("featureID") != 0) { //0 represent null
-                    account.getFeatures().add(new Feature(rs.getInt("featureID"), rs.getString("url"), rs.getString("featureName")));
+                if (BCrypt.checkpw(password, rs.getString("Password"))) {
+                    if (account == null) {
+                        account = new Account(username, password, rs.getString("FullName"),
+                                rs.getDate("Dob"), rs.getString("Address"), rs.getString("Phone"),
+                                rs.getString("Email"), rs.getBoolean("isActive"));
+                    }
+                    if (rs.getInt("featureID") != 0) { //0 represent null
+                        account.getFeatures().add(new Feature(rs.getInt("featureID"), rs.getString("url"), rs.getString("featureName")));
+                    }
                 }
             }
             return account;
@@ -121,7 +123,9 @@ public class AccountDBContext extends DBContext {
                     + "     VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, account.getUsername());
-            stm.setString(2, "123456");
+            //hashing password
+            String pass = BCrypt.hashpw("123456", BCrypt.gensalt(12));
+            stm.setString(2, pass);
             stm.setString(3, account.getFullName());
             stm.setDate(4, account.getDob());
             stm.setString(5, account.getAddress());
@@ -218,7 +222,9 @@ public class AccountDBContext extends DBContext {
                     + "   SET [Password] = ?\n"
                     + " WHERE [Username] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, password);
+            //hashing password
+            String pass = BCrypt.hashpw(password, BCrypt.gensalt(12));
+            stm.setString(1, pass);
             stm.setString(2, username);
             stm.executeUpdate();
 

@@ -81,7 +81,7 @@ public class UpdateAccountController extends HttpServlet {
         account.setIsActive(status.equals("active"));
         
         //new java.util.Date() is get current Date
-        if (account.getDob().after(new java.util.Date())) {
+        if (account.getDob() != null && account.getDob().after(new java.util.Date())) {
             request.setAttribute("errorDob", "Date of birth is invalid.");
             request.setAttribute("account", account);
             request.getRequestDispatcher("detail?username="+username).forward(request, response);
