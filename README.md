@@ -1,5 +1,5 @@
 Warehouse Management System
-This is a web application completed in the course Java Web Application Development. 
+This is a web application completed in the course Java Web Application Development (PRJ301). 
 The project implements the basic functions of an inventory management program.
 Main feature:
   1. Account Management: CRUD account, authentication & authorization
